@@ -15,11 +15,11 @@ class AdminController extends Controller
 {
     public function login()
     {
-        return view('admin.auth.login');
+        return view('admin.login');
     }
     public function dashboard()
     {
-        return view('admin.dashboard');
+        return view('admin.index');
     }
 
     public function loginSubmit(Request $request)
@@ -60,7 +60,7 @@ class AdminController extends Controller
 
     public function forgotPassword()
     {
-        return view('admin.auth.forget-password');
+        return view('admin.forget_password');
     }
 
 
@@ -92,7 +92,7 @@ class AdminController extends Controller
         $email = $request->query('email');
         $is_admin = Admin::where('email', $email)->where('token', $token)->first();
         if ($is_admin) {
-            return view('admin.auth.reset-password', compact('token', 'email'));
+            return view('admin.reset_password', compact('token', 'email'));
         } else {
             return redirect()->route('admin.login_create')->with('error', 'Invalid token and email');
         }
@@ -104,9 +104,10 @@ class AdminController extends Controller
         $request->validate([
             'email' => 'required|email|exists:admins,email',
             'token' => 'required|exists:admins,token',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password'
         ]);
-        
+
 
         // Find the admin using the provided email and token
         $admin = Admin::where('email', $request->email)

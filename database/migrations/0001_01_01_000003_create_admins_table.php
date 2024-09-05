@@ -17,10 +17,12 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('photo')->nullable();
+            $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('role')->default('admin');
             $table->string('status')->default('1');
             $table->text('token')->nullable(); // token for admin reseting his password
+
             $table->rememberToken();
             $table->timestamps();
         });
