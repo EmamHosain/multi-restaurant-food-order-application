@@ -20,30 +20,30 @@
                 </li>
 
 
-                {{-- @if (Auth::guard('admin')->user()->can('category.menu'))
+                {{-- @if (Auth::guard('admin')->user()->can('category.menu')) --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="grid"></i>
                         <span data-key="t-apps">Category</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        @if (Auth::guard('admin')->user()->can('category.all'))
+                        {{-- @if (Auth::guard('admin')->user()->can('category.all')) --}}
                         <li>
-                            <a href="{{ route('all.category') }}">
+                            <a href="{{ route('admin.all_categories') }}">
                                 <span data-key="t-calendar">All Category</span>
                             </a>
                         </li>
-                        @endif
-                        @if (Auth::guard('admin')->user()->can('category.add'))
+                        {{-- @endif --}}
+                        {{-- @if (Auth::guard('admin')->user()->can('category.add')) --}}
                         <li>
-                            <a href="{{ route('add.category') }}">
+                            <a href="{{ route('admin.category_create') }}">
                                 <span data-key="t-chat">Add Category</span>
                             </a>
                         </li>
-                        @endif
+                        {{-- @endif --}}
                     </ul>
                 </li>
-                @endif --}}
+                {{-- @endif --}}
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">

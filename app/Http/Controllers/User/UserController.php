@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -57,5 +59,43 @@ class UserController extends Controller
             'message' => 'Profile updated successfully.',
             'alert-type' => 'success',
         ]);
+    }
+
+
+    public function getUpdatePasswordPage(Request $request)
+    {
+        return view('frontend.dashboard.change_password');
+    }
+
+
+    public function updatePasswordSubmit(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+
+        ]);
+
+        $user = Auth::guard('web')->user();
+
+        $notification = [
+            'message' => 'Password updated successfully.',
+            'alert-type' => 'success',
+        ];
+        if (!Hash::check($request->old_password, $user->password)) {
+            $notification = [
+                'message' => 'Invalid old password.',
+                'alert-type' => 'error',
+            ];
+            return redirect()->back()->with($notification);
+        }
+
+
+        User::whereId($user->id)->update([
+            'password' => Hash::make($request->password),
+        ]);
+        
+        return redirect()->back()->with($notification);
+
     }
 }

@@ -78,8 +78,8 @@
                               class="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sing
                               Up </button>
                            <div class="text-center pt-3">
-                              Don’t have an account? <a class="font-weight-bold" href="{{ route('register')}}">Sign
-                                 Up</a>
+                              Have an account? <a class="font-weight-bold" href="{{ route('login')}}">Sign
+                                 In</a>
                            </div>
                         </form>
                         <hr class="my-4">

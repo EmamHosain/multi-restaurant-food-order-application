@@ -27,8 +27,8 @@ $profileData = App\Models\User::find($id);
          </li>
 
          <li class="nav-item">
-            <a class="nav-link {{ Route::currentRouteName() === 'change.password' ? 'active' : '' }}"
-               href="#" role="tab" aria-controls="orders" aria-selected="true"><i
+            <a class="nav-link {{ Route::currentRouteName() === 'user.update_password' ? 'active' : '' }}"
+               href="{{ route('user.update_password') }}" role="tab" aria-controls="orders" aria-selected="true"><i
                   class="icofont-food-cart"></i> Change Password </a>
          </li>
 

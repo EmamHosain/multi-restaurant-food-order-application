@@ -12,7 +12,9 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <a href="{{ route('add.category') }}" class="btn btn-primary waves-effect waves-light">Add Category</a>
+                            <a href="{{ route('admin.category_create') }}"
+                                class="btn btn-primary waves-effect waves-light">Add
+                                Category</a>
                         </ol>
                     </div>
 
@@ -24,45 +26,52 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                     
+
                     <div class="card-body">
 
-        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-            <thead>
-            <tr>
-                <th>Sl</th>
-                <th>Category Name</th>
-                <th>Image</th>
-                <th>Action </th> 
-            </tr>
-            </thead>
+                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Category Name</th>
+                                    <th>Image</th>
+                                    <th>Action </th>
+                                </tr>
+                            </thead>
 
 
-            <tbody>
-           @foreach ($category as $key=> $item)  
-            <tr>
-                <td>{{ $key+1 }}</td>
-                <td>{{ $item->category_name }}</td>
-                <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;"></td>
-                <td>
-          <a href="{{ route('edit.category',$item->id) }}" class="btn btn-info waves-effect waves-light">Edit</a>
+                            <tbody>
+                                @foreach ($categories as $key=> $item)
+                                <tr>
+                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $item->category_name }}</td>
+                                    <td>
+                                        <img src="{{ asset('upload/category/'. $item->image) }}" alt=""
+                                            style="width: 70px; height:40px;">
+                                    </td>
+                                    <td class="d-flex justify-content-start align-items-center gap-2">
+                                        <a href="{{ route('admin.category_item_edit',$item->id) }}"
+                                            class="btn btn-info waves-effect waves-light">Edit</a>
 
-   @if (Auth::guard('admin')->user()->can('category.delete'))
-      <a href="{{ route('delete.category',$item->id) }}" class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
-@endif
-                </td> 
-            </tr>
-            @endforeach    
-            
-            </tbody>
-        </table>
+                                        {{-- @if (Auth::guard('admin')->user()->can('category.delete')) --}}
+
+                                        <a href="{{ route('admin.category_item_delete',$item->id) }}"
+                                            class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+
+                                        {{-- @endif --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
             </div> <!-- end col -->
-        </div> <!-- end row --> 
+        </div> <!-- end row -->
 
-         
+
     </div> <!-- container-fluid -->
 </div>
 

@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark osahan-nav">
    <div class="container">
-      {{-- <a class="navbar-brand" href="{{ route('index') }}"><img alt="logo"
-            src="{{ asset('frontend/img/logo.png') }}"></a> --}}
-      <a class="navbar-brand" href="#"><img alt="logo" src="{{ asset('frontend/img/logo.png') }}"></a>
+
+      <a class="navbar-brand" href="{{ route('index') }}"><img alt="logo"
+            src="{{ asset('frontend/img/logo.png') }}"></a>
 
 
 
@@ -33,6 +33,7 @@
 
 
             @auth
+
             @php
             $id = Auth::user()->id;
             $profileData = App\Models\User::find($id);
@@ -45,20 +46,20 @@
                      class="nav-osahan-pic rounded-pill"> My Account
                </a>
                <div class="dropdown-menu dropdown-menu-right shadow-sm border-0">
-                  {{-- <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="icofont-food-cart"></i>
-                     Dashboard</a>
-                  <a class="dropdown-item" href="{{ route('user.logout') }}"><i class="icofont-sale-discount"></i>
-                     Logout </a> --}}
 
-                  <a class="dropdown-item" href="#"><i class="icofont-food-cart"></i>
+
+                  <a class="dropdown-item" href="{{ route('dashboard') }}"><i class="icofont-food-cart"></i>
                      Dashboard</a>
-                  <a class="dropdown-item" href="#"><i class="icofont-sale-discount"></i>
-                     Logout </a>
+                  <form action="{{ route('logout') }}" method="post">
+                     @csrf
+                     <button type="submit" class="dropdown-item"><i class="icofont-sale-discount"></i>
+                        Logout </button>
+                  </form>
 
                </div>
             </li>
             @else
-            {{-- <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                <a class="nav-link" href="{{ route('login') }}" role="button" aria-haspopup="true" aria-expanded="false">
                   Login
                </a>
@@ -68,19 +69,8 @@
                   aria-expanded="false">
                   Register
                </a>
-            </li> --}}
-
-
-            <li class="nav-item dropdown">
-               <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  Login
-               </a>
             </li>
-            <li class="nav-item dropdown">
-               <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  Register
-               </a>
-            </li>
+
             @endauth
 
 

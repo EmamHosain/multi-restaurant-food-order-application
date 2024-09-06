@@ -33,7 +33,7 @@
         type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    
+
     <!-- App Css-->
     <link href="{{ asset('backend/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
@@ -110,6 +110,8 @@
     <script src="{{ asset('backend/assets/js/pages/dashboard.init.js') }}"></script>
 
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>
+
+    {{-- form validation --}}
     <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

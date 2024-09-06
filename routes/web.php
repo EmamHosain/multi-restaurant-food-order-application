@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('frontend.index');
-});
+})->name('index');
 
-Route::get('/user/profile', function () {
+Route::get('/user/dashboard', function () {
     return view('frontend.dashboard.profile');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     // user auth route start here
     Route::patch('/profile/update', [UserController::class, 'profileUpdate'])->name('profile_update');
+    Route::get('/update-password', [UserController::class, 'getUpdatePasswordPage'])->name('update_password');
+    Route::patch('/update-password', [UserController::class, 'updatePasswordSubmit'])->name('update_password_submit');
+
 });
 
 require __DIR__ . '/auth.php';
