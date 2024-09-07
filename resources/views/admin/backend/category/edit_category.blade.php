@@ -63,8 +63,8 @@
                                         </div>
                                         <div class="mb-3">
 
-                                            <img id="showImage" src="{{ asset('upload/category/'.$category->image) }}"
-                                                alt="" class="rounded-circle p-1 bg-primary" width="110">
+                                            <img id="showImage" src="{{ url($category->image) }}" alt=""
+                                                class="rounded-circle p-1 bg-primary" width="110">
                                         </div>
                                         <div class="mt-4">
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">Save

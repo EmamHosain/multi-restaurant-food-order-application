@@ -52,12 +52,12 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.city') }}">
-                                <span data-key="t-calendar">All City</span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.all_cities') }}">
                                 <span data-key="t-calendar">All City</span>
                             </a>
+                            {{-- <a href="#">
+                                <span data-key="t-calendar">All City</span>
+                            </a> --}}
                         </li>
 
                     </ul>

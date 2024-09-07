@@ -46,8 +46,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->category_name }}</td>
                                     <td>
-                                        <img src="{{ asset('upload/category/'. $item->image) }}" alt=""
-                                            style="width: 70px; height:40px;">
+                                        <img src="{{  url($item->image) }}" alt="" style="width: 70px; height:40px;">
                                     </td>
                                     <td class="d-flex justify-content-start align-items-center gap-2">
                                         <a href="{{ route('admin.category_item_edit',$item->id) }}"

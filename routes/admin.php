@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CityController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,4 +39,17 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::patch('/category/update/{category}', 'update')->name('category_item_update');
         Route::get('/category/delete/{category}', 'destroy')->name('category_item_delete');
     });
+
+    Route::controller(CityController::class)->group(function () {
+        Route::get('/city', 'index')->name('all_cities');
+        Route::get('/city/create', 'create')->name('city_create');
+        Route::post('/city/store', 'store')->name('city_store');
+
+
+        Route::get('/city/edit/{id}', 'edit')->name('city_item_edit');
+
+        Route::patch('/city/update', 'update')->name('city_item_update');
+        Route::get('/city/delete/{city}', 'destroy')->name('city_item_delete');
+    });
+   
 });

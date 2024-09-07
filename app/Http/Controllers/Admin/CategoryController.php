@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
+// image intervention package 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 class CategoryController extends Controller
 {
     /**
@@ -36,28 +40,42 @@ class CategoryController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $category = new Category();
-        $category->category_name = $request->category_name;
+        try {
+            $category = new Category();
+            $category->category_name = $request->category_name;
 
-        if ($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
+
+                // image intervention 
+                $manager = new ImageManager(new Driver());
 
 
-            // Store new photo and update user record
-            $image = $request->file('image');
-            $image_name = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('upload/category'), $image_name);
+                // Store new photo and update user record
+                $image = $request->file('image');
+                $image_name = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
 
-            // Only store the file name in the database
-            $category->image = $image_name;
+                $img = $manager->read($image);
+                $img->resize(300, 300)->save(public_path('upload/category/' . $image_name));
+                $image_with_full_path = 'upload/category/' . $image_name;
+                // Only store the file name in the database
+                $category->image = $image_with_full_path;
+            }
+
+            $category->save();
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Category created successfully.'
+            ];
+            return redirect()->route('admin.all_categories')->with($notification);
+        } catch (\Throwable $th) {
+            $notification = [
+                'alert-type' => 'error',
+                'message' => 'Something went wrong.'
+            ];
+            return redirect()->route('admin.all_categories')->with($notification);
+
         }
-
-        $category->save();
-
-        $notification = [
-            'alert-type' => 'success',
-            'message' => 'Category created successfully.'
-        ];
-        return redirect()->route('admin.all_categories')->with($notification);
     }
 
 
@@ -85,17 +103,24 @@ class CategoryController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete the old image if it exists
-            if ($category->image && file_exists(public_path('upload/category/' . $category->image))) {
-                unlink(public_path('upload/category/' . $category->image));
+            if ($category->image && file_exists(public_path($category->image))) {
+                unlink(public_path($category->image));
             }
+
+            // image intervention 
+            $manager = new ImageManager(new Driver());
 
             // Store new image
             $image = $request->file('image');
             $image_name = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('upload/category'), $image_name);
 
+            $img = $manager->read($image);
+            // save to uplod/category/ folder 
+            $img->resize(300, 300)->save(public_path('upload/category/' . $image_name));
+
+            $image_name_with_full_path = 'upload/category/' . $image_name;
             // Only store the new file name in the database
-            $category->image = $image_name;
+            $category->image = $image_name_with_full_path;
         }
 
         // Save updated category
@@ -116,9 +141,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         // Check if the category has an image and if it exists in the directory
-        if ($category->image && file_exists(public_path('upload/category/' . $category->image))) {
+        if ($category->image && file_exists(public_path($category->image))) {
             // Delete the image from the directory
-            unlink(public_path('upload/category/' . $category->image));
+            unlink(public_path($category->image));
         }
         $category->delete();
         $notification = [
