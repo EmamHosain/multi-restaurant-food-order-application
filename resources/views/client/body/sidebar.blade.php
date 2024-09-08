@@ -74,21 +74,17 @@ $status = $client->status;
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.gallery') }}">
-                                <span data-key="t-calendar">All Gallery</span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('client.all_galleries') }}">
                                 <span data-key="t-calendar">All Gallery</span>
                             </a>
+
                         </li>
 
                         <li>
-                            {{-- <a href="{{ route('add.gallery') }}">
-                                <span data-key="t-chat">Add Gallery</span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('client.gallery_create') }}">
                                 <span data-key="t-chat">Add Gallery</span>
                             </a>
+
                         </li>
 
                     </ul>

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Gallery;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\User;
@@ -50,7 +51,7 @@ class DatabaseSeeder extends Seeder
         City::factory()->count(10)->create();
         Menu::factory()->count(10)->create();
         Product::factory()->count(10)->create();
-
+        Gallery::factory()->count(20)->create();
 
 
 

@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Client\GalleryController;
 use App\Http\Controllers\Client\MenuController;
 use App\Http\Controllers\Client\ProductController;
 use App\Models\Menu;
@@ -58,5 +59,17 @@ Route::middleware(['clientAuth'])->group(function () {
     });
     // product route end
 
+
+
+    // product route start
+    Route::controller(GalleryController::class)->group(function () {
+        Route::get('/galleries', 'index')->name('all_galleries');
+        Route::get('/gallery/create', 'create')->name('gallery_create');
+        Route::post('/gallery/store', 'store')->name('gallery_store');
+        Route::get('/gallery/edit/{gallery}', 'edit')->name('gallery_edit');
+        Route::patch('/gallery/update/{gallery}', 'update')->name('gallery_update');
+        Route::get('/gallery/delete/{gallery}', 'destroy')->name('gallery_delete');
+    });
+    // product route end
 
 });

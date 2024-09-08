@@ -9,14 +9,15 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
-// image intervention package 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-// id generator 
+
+// image intervention package 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+
+// id generator 
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller

@@ -14,7 +14,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Galler  </li>
+                            <li class="breadcrumb-item active">Add Galler </li>
                         </ol>
                     </div>
 
@@ -24,34 +24,47 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-9 col-lg-8"> 
- <div class="card">
-<div class="card-body p-4">
+            <div class="col-xl-9 col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
+                       
+                        <form id="myForm" action="{{ route('client.gallery_store') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
 
-<form id="myForm" action="{{ route('gallery.store') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    
-<div class="row">
-      
-    <div class="col-lg-6">
-        <div class="mt-3 mt-lg-0">
-            
-            <div class="form-group mb-3">
-                <label for="example-text-input" class="form-label">Gallery Image</label>
-                <input class="form-control" name="gallery_img[]" type="file"  id="multiImg" multiple>
-                <div class="row" id="preview_img"></div>
-            </div>
-          
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save Changes</button>
-            </div>
-              
-        </div>
-    </div>
-</div>
-</form>
-</div>
-</div>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="mt-3 mt-lg-0">
+
+                                        <div class="form-group mb-3">
+                                            <label for="example-text-input" class="form-label">Gallery Image</label>
+                                            <input class="form-control @error('image') is-invalid @enderror"
+                                                name="image[]" type="file" id="multiImg" multiple>
+                                            <div class="row" id="preview_img"></div>
+
+                                            {{-- Error message for the entire image array --}}
+                                            @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
+                                            {{-- Error message for individual files in the image array --}}
+                                            @error('image.*')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save
+                                                Changes</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
 
@@ -61,22 +74,21 @@
 
 
 
-               
+
                 <!-- end tab content -->
             </div>
             <!-- end col -->
 
-            
+
             <!-- end col -->
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
- 
-<script> 
- 
+
+<script>
     $(document).ready(function(){
      $('#multiImg').on('change', function(){ //on file input change
         if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
@@ -103,7 +115,7 @@
      });
     });
      
-    </script>
+</script>
 
 
 @endsection
