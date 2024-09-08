@@ -127,7 +127,7 @@
                                     <div class="mb-3">
 
                                         <img id="showImage"
-                                            src="{{ (!empty($profileData->photo)) ? url('upload/client_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
+                                            src="{{ (!empty($profileData->photo)) ? url($profileData->photo) : url('upload/no_image.jpg') }}"
                                             alt="" class="rounded-circle p-1 bg-primary" width="110">
 
 

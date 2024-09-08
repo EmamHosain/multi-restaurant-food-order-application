@@ -48,7 +48,8 @@ class ClientProfileController extends Controller
             $photo->move(public_path('upload/client_images'), $photo_name);
 
             // Only store the file name in the database
-            $validatedData['photo'] = $photo_name;
+            $image_name_with_full_path = 'upload/client_images/' . $photo_name;
+            $validatedData['photo'] = $image_name_with_full_path;
         }
 
         $client->update($validatedData);

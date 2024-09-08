@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Client\MenuController;
+use App\Http\Controllers\Client\ProductController;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\ClientController;
@@ -31,6 +32,8 @@ Route::middleware(['clientAuth'])->group(function () {
     Route::get('/update-password', [ClientProfileController::class, 'getUpdatePasswordPage'])->name('update_password_page');
     Route::patch('/update-password', [ClientProfileController::class, 'updatePassword'])->name('password_update');
 
+
+    // menu route start
     Route::controller(MenuController::class)->group(function () {
         Route::get('/all-menu', 'index')->name('all_menu');
         Route::get('/menu/create', 'create')->name('menu_create');
@@ -38,8 +41,22 @@ Route::middleware(['clientAuth'])->group(function () {
         Route::get('/menu/edit/{menu}', 'edit')->name('menu_edit');
         Route::patch('/menu/update/{menu}', 'update')->name('menu_update');
         Route::get('/menu/delete/{menu}', 'destroy')->name('menu_delete');
-
-
     });
+    // menu route end
+
+
+
+
+    // product route start
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/products', 'index')->name('all_products');
+        Route::get('/product/create', 'create')->name('product_create');
+        Route::post('/product/store', 'store')->name('product_store');
+        Route::get('/product/edit/{product}', 'edit')->name('product_edit');
+        Route::patch('/product/update/{product}', 'update')->name('product_update');
+        Route::get('/product/delete/{product}', 'destroy')->name('product_delete');
+    });
+    // product route end
+
 
 });

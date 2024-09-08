@@ -51,19 +51,15 @@ $status = $client->status;
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.product') }}">
-                                <span data-key="t-calendar">All Product</span>
-                            </a> --}}
-                            <a href="#">
+
+                            <a href="{{ route('client.all_products') }}">
                                 <span data-key="t-calendar">All Product</span>
                             </a>
                         </li>
 
                         <li>
-                            {{-- <a href="{{ route('add.product') }}">
-                                <span data-key="t-chat">Add Product</span>
-                            </a> --}}
-                            <a href="#">
+
+                            <a href="{{ route('client.product_create') }}">
                                 <span data-key="t-chat">Add Product</span>
                             </a>
                         </li>
