@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Client;
 
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 // image intervention package 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
 
 // id generator 
+use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -162,6 +163,8 @@ class ProductController extends Controller
         $product->most_popular = $request->input('most_popular');
         // $product->code = $product_code;
         $product->status = $request->input('status');
+        $product->created_at = Carbon::now();
+
 
 
 
