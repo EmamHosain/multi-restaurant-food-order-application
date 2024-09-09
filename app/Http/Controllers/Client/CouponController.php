@@ -76,7 +76,6 @@ class CouponController extends Controller
         ]);
 
         // Create a new Coupon instance
-        $coupon->client_id = Auth::guard('client')->id();
         $coupon->coupon_name = strtoupper($request->input('coupon_name'));
         $coupon->coupon_desc = $request->input('coupon_desc');
         $coupon->validity_date = $request->input('validity_date');

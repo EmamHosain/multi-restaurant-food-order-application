@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('admin_id')->nullable()->constrained('admins')->onDelete('set null');
+
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
-
             $table->foreignId('menu_id')->constrained()->onDelete('cascade');
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
 
@@ -31,7 +32,7 @@ return new class extends Migration {
 
             $table->string('most_popular')->nullable();
             $table->string('best_seller')->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

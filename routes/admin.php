@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\ProductManageController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -47,5 +48,20 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::patch('/city/update', 'update')->name('city_item_update');
         Route::get('/city/delete/{city}', 'destroy')->name('city_item_delete');
     });
-   
+
+
+
+    // product manage route start 
+    Route::controller(ProductManageController::class)->group(function () {
+        Route::get('/all-products', 'index')->name('all_products');
+        Route::get('/product/create', 'create')->name('product_create');
+        
+        Route::post('/product/store', 'store')->name('product_store');
+        Route::get('/product/edit/{product}', 'edit')->name('product_edit');
+        Route::patch('/product/update/{product}', 'update')->name('product_update');
+        Route::get('/product/delete/{product}', 'destroy')->name('product_delete');
+    });
+    // product manage route end 
+
+
 });

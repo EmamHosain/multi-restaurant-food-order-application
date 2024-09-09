@@ -13,6 +13,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'admin_id',
         'name',
         'slug',
         'category_id',
@@ -29,10 +30,16 @@ class Product extends Model
         'best_seller',
         'status'
     ];
+
+    // admin relationship
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
     // Category Relationship
     public function category()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     // City Relationship
@@ -44,7 +51,7 @@ class Product extends Model
     // Menu Relationship
     public function menu()
     {
-        return $this->belongsTo(Menu::class,'menu_id');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     // Client Relationship
