@@ -99,6 +99,38 @@
                                         @enderror
                                     </div>
 
+
+                                    <div class="mb-3">
+                                        <label for="shop_info" class="form-label">Restaurant info</label>
+                                        <textarea class="form-control" name="shop_info" id="shop_info"
+                                            placeholder="Enter restaurant info" id="floatingTextarea2"
+                                            style="height: 100px; text-align: left;">{{ $profileData->shop_info ??
+                                            '' }}</textarea>
+                                        @error('shop_info')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+
+                                    {{-- shop cover photo --}}
+                                    <div class="mb-3">
+                                        <label for="cover_photo" class="form-label">Conver Image</label>
+                                        <input class="form-control @error('cover_photo') is-invalid @enderror"
+                                            name="cover_photo" type="file" id="cover_photo">
+                                        @error('cover_photo')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <img id="cover_photo_show"
+                                            src="{{ !empty($profileData->cover_photo) ? url($profileData->cover_photo) : url('upload/no_image.jpg') }}"
+                                            alt="Cover Photo" class="border border-primary" width="200" height="110" style="object-fit: cover; float: left;">
+                                    </div>
+                                    
+
+
                                 </div>
                             </div>
 
@@ -114,6 +146,25 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="city_id" class="form-label">City Name</label>
+                                        <select name="city_id" class="form-select">
+                                            <option value="">Select</option>
+                                            @foreach ($cities as $cit)
+                                            <option value="{{ $cit->id }}" {{ $profileData->city_id == $cit->id ?
+                                                'selected' : ''
+                                                }}>
+                                                {{ $cit->city_name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('city_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
 
                                     <div class="mb-3">
                                         <label for="example-text-input" class="form-label">Profile Image</label>
@@ -168,7 +219,22 @@
             }
             reader.readAsDataURL(e.target.files['0']);
         })
+
+
+
+        $('#cover_photo').change(function(e){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#cover_photo_show').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(e.target.files['0']);
+        })
     })
+
+
+
+
+
 
 </script>
 
