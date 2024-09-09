@@ -98,20 +98,16 @@ $status = $client->status;
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.coupon') }}">
-                                <span data-key="t-calendar">All Coupon</span>
-                            </a> --}}
 
-                            <a href="#">
+
+                            <a href="{{ route('client.all_coupons') }}">
                                 <span data-key="t-calendar">All Coupon</span>
                             </a>
                         </li>
 
                         <li>
-                            {{-- <a href="{{ route('add.coupon') }}">
-                                <span data-key="t-chat">Add Coupon</span>
-                            </a> --}}
-                            <a href="#">
+
+                            <a href="{{ route('client.coupon_create') }}">
                                 <span data-key="t-chat">Add Coupon</span>
                             </a>
                         </li>

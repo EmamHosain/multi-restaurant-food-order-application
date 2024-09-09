@@ -14,7 +14,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Edit Coupon  </li>
+                            <li class="breadcrumb-item active">Edit Coupon </li>
                         </ol>
                     </div>
 
@@ -24,57 +24,94 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-12 col-lg-12"> 
- <div class="card">
-<div class="card-body p-4">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body p-4">
 
-<form id="myForm" action="{{ route('coupon.update') }}" method="post" enctype="multipart/form-data">
-    @csrf
+                        <form id="myForm" action="{{ route('client.coupon_update',$coupon->id) }}" method="post">
+                            @csrf
+                            @method('patch')
 
-    <input type="hidden" name="id" value="{{ $coupon->id }}">
-    
-<div class="row">
+                            <div class="row">
 
-    <div class="col-xl-6 col-md-6"> 
-        <div class="form-group mb-3">
-            <label for="example-text-input" class="form-label">Coupon Name</label>
-            <input class="form-control" type="text" name="coupon_name"  id="example-text-input" value="{{ $coupon->coupon_name }}">
-        </div> 
-    </div>
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="example-text-input" class="form-label">Coupon Name</label>
+                                        <input class="form-control @error('coupon_name')
+           is-invalid 
+        @enderror" type="text" name="coupon_name" value="{{ old('coupon_name',$coupon->coupon_name) }}"
+                                            id="example-text-input">
 
-    
-    <div class="col-xl-6 col-md-6"> 
-        <div class="form-group mb-3">
-            <label for="example-text-input" class="form-label">Coupon Dsc </label>
-            <input class="form-control" type="text" name="coupon_desc"  id="example-text-input" value="{{ $coupon->coupon_desc }}">
-        </div> 
-    </div>
-
-    <div class="col-xl-6 col-md-6"> 
-        <div class="form-group mb-3">
-            <label for="example-text-input" class="form-label">Coupon Discount </label>
-            <input class="form-control" type="text" name="discount"  id="example-text-input" value="{{ $coupon->discount }}">
-        </div> 
-    </div>
-
-    <div class="col-xl-6 col-md-6"> 
-        <div class="form-group mb-3">
-            <label for="example-text-input" class="form-label">Coupon Validity </label>
-            <input class="form-control" type="date" name="validity"  id="example-text-input" min="{{ Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $coupon->validity }}">
-        </div> 
-    </div>
+                                        {{-- Error message --}}
+                                        @error('coupon_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
 
-    <div class="mt-4">
-        <button type="submit" class="btn btn-primary waves-effect waves-light">Save Changes</button>
-    </div>
- 
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="example-text-input" class="form-label ">Coupon Discount </label>
+                                        <input class="form-control @error('discount')
+                                    is-invalid 
+                                 @enderror" type="text" name="discount" id="example-text-input"
+                                            value="{{ old('discount',$coupon->discount) }}">
+                                        {{-- Error message --}}
+                                        @error('discount')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
-   
-</div>
-</form>
-</div>
-</div>
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="example-text-input" class="form-label @error('validity_date')
+                                    is-invalid 
+                                 @enderror">Coupon Validity </label>
+                                        <input class="form-control" type="date" name="validity_date"
+                                            id="example-text-input" 
+                                            value="{{ old('validity_date',$coupon->validity_date) }}">
+
+                                        @error('validity_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="floatingTextarea2" class="form-label">Coupon Description </label>
+
+                                        {{-- <textarea class="form-control @error('coupon_desc') is-invalid @enderror"
+                                            name="coupon_desc" placeholder="Coupon description" id="floatingTextarea2"
+                                            style="height: 100px; text-align: left;">
+                                            {{ $coupon->coupon_desc ?? '' }}
+                                        </textarea> --}}
+
+                                        <textarea class="form-control" name="coupon_desc" id="coupon_desc"
+                                        placeholder="Coupon description" id="floatingTextarea2"
+                                            style="height: 100px; text-align: left;">{{ $coupon->coupon_desc ?? '' }}</textarea>
+
+                                        {{-- Error message --}}
+                                        @error('coupon_desc')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Save
+                                        Changes</button>
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
 
@@ -84,20 +121,20 @@
 
 
 
-               
+
                 <!-- end tab content -->
             </div>
             <!-- end col -->
 
-            
+
             <!-- end col -->
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
- 
+
 
 <script type="text/javascript">
     $(document).ready(function (){

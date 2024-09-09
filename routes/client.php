@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Client\CouponController;
 use App\Http\Controllers\Client\GalleryController;
 use App\Http\Controllers\Client\MenuController;
 use App\Http\Controllers\Client\ProductController;
@@ -71,5 +72,21 @@ Route::middleware(['clientAuth'])->group(function () {
         Route::get('/gallery/delete/{gallery}', 'destroy')->name('gallery_delete');
     });
     // product route end
+
+
+
+    // coupon route start
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('/all-coupon', 'index')->name('all_coupons');
+        Route::get('/coupon/create', 'create')->name('coupon_create');
+        Route::post('/coupon/store', 'store')->name('coupon_store');
+        Route::get('/coupon/edit/{coupon}', 'edit')->name('coupon_edit');
+        Route::patch('/coupon/update/{coupon}', 'update')->name('coupon_update');
+        Route::get('/coupon/delete/{coupon}', 'destroy')->name('coupon_delete');
+    });
+    // coupon route end
+
+
+
 
 });
