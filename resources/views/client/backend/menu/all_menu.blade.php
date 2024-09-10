@@ -46,7 +46,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->menu_name }}</td>
                                     <td>{{ $item->slug }}</td>
-                                    <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;">
+                                    <td><img src="{{ $item->image ? asset($item->image) : asset('upload/no_image.jpg') }}" alt="" style="width: 70px; height:40px;">
                                     </td>
                                     <td>
                                         <a href="{{ route('client.menu_edit',$item->id) }}"

@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Menu;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
 
 // image intervention package 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 // id generator 
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -91,7 +92,7 @@ class ProductManageController extends Controller
         $product->best_seller = $request->input('best_seller');
         $product->most_popular = $request->input('most_popular');
         $product->code = $product_code;
-        // $product->status = $request->input('status');
+        $product->created_at = Carbon::now();
 
 
 
@@ -180,6 +181,8 @@ class ProductManageController extends Controller
         $product->best_seller = $request->input('best_seller');
         $product->most_popular = $request->input('most_popular');
         $product->status = $request->input('status');
+        $product->created_at = Carbon::now();
+
 
 
 

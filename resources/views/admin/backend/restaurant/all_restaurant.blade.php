@@ -10,15 +10,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">All Product</h4>
-
+                    <h4 class="mb-sm-0 font-size-18">All Restaurant</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <a href="{{ route('admin.product_create') }}"
-                                class="btn btn-primary waves-effect waves-light">Add Product</a>
+                                class="btn btn-primary waves-effect waves-light">Add Restuarant</a>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -29,17 +27,14 @@
                 <div class="card">
 
                     <div class="card-body">
-
                         <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                             <thead>
                                 <tr>
                                     <th>Sl</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Restaurant</th>
-                                    <th>QTY</th>
-                                    <th>Price</th>
-                                    <th>Discount</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
                                     <th>Status</th>
                                     <th>Action </th>
                                 </tr>
@@ -47,28 +42,21 @@
 
 
                             <tbody>
-                                @foreach ($products as $key=> $item)
+                                @foreach ($client as $key=> $item)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;">
-                                    </td>
+                                    <td><img src="{{ (!empty($item->photo)) ? asset($item->photo) : url('upload/no_image.jpg') }}"
+                                            alt="" style="width: 70px; height:40px;"></td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->client->name }}</td>
-                                    <td>{{ $item->qty }}</td>
-                                    <td>{{ $item->price }}</td>
+                                    <td>{{ $item->email }}</td>
+
+                                    @if (!$item->phone)
+                                    <td><span class="text-danger"><b>Empty</b></span></td>
+                                    @else
+                                    <td>{{ $item->phone }}</td>
+                                    @endif
                                     <td>
-                                        @if ($item->discount_price == NULL)
-                                        <span class="badge bg-danger">No Discount</span>
-                                        @else
-                                        @php
-                                        $amount = $item->price - $item->discount_price;
-                                        $discount = ($amount / $item->price) * 100;
-                                        @endphp
-                                        <span class="badge bg-danger">{{ round($discount) }}%</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->status == 1)
+                                        @if ($item->status == '1')
                                         <span class="text-success"><b>Active</b></span>
                                         @else
                                         <span class="text-danger"><b>InActive</b></span>
@@ -76,14 +64,15 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('admin.product_edit',$item->id) }}"
+                                        <a href="{{ route('admin.edit_restuarant',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light"> <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.product_delete',$item->id) }}"
+                                        <a href="{{ route('admin.restuarant_delte',$item->id) }}"
                                             class="btn btn-danger waves-effect waves-light" id="delete"><i
                                                 class="fas fa-trash"></i></a>
-                                       
 
+
+                                    
                                     </td>
                                 </tr>
                                 @endforeach
@@ -99,5 +88,6 @@
 
     </div> <!-- container-fluid -->
 </div>
+
 
 @endsection

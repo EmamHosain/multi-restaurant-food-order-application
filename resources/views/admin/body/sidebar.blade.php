@@ -94,22 +94,29 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('pending.restaurant') }}">
-                                <span data-key="t-calendar">Pending Restaurant </span>
-                            </a> --}}
-                            <a href="#">
-                                <span data-key="t-calendar">Pending Restaurant </span>
+
+                            <a href="{{ route('admin.all_restuarants') }}">
+                                <span data-key="t-calendar">All Restaurant </span>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="{{ route('admin.add_restuarant') }}">
+                                <span data-key="t-calendar">Add Restaurant </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pending_restuarants') }}">
+                                <span data-key="t-chat">Pending Restaurant</span>
                             </a>
                         </li>
 
                         <li>
-                            {{-- <a href="{{ route('approve.restaurant') }}">
-                                <span data-key="t-chat">Approve Restaurant</span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.approved_restuarants') }}">
                                 <span data-key="t-chat">Approve Restaurant</span>
                             </a>
                         </li>
+
 
                     </ul>
                 </li>

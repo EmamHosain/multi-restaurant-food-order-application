@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
+
 
             $table->string('name');
             $table->string('email')->unique();
@@ -22,7 +24,7 @@ return new class extends Migration {
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('role')->default('client');
-            $table->string('status')->default('1');
+            $table->string('status')->default('0');
             $table->text('token')->nullable(); // token for client reseting his password
             $table->rememberToken();
 
@@ -31,6 +33,7 @@ return new class extends Migration {
             $table->string('cover_photo')->nullable();
 
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\ManageRestuarantController;
 use App\Http\Controllers\Admin\ProductManageController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,13 +56,30 @@ Route::middleware(['adminAuth'])->group(function () {
     Route::controller(ProductManageController::class)->group(function () {
         Route::get('/all-products', 'index')->name('all_products');
         Route::get('/product/create', 'create')->name('product_create');
-        
         Route::post('/product/store', 'store')->name('product_store');
         Route::get('/product/edit/{product}', 'edit')->name('product_edit');
         Route::patch('/product/update/{product}', 'update')->name('product_update');
         Route::get('/product/delete/{product}', 'destroy')->name('product_delete');
     });
     // product manage route end 
+
+
+    //restuarant management route start 
+    Route::controller(ManageRestuarantController::class)->group(function () {
+        Route::get('/change-status/inactive/{client}', 'setInactiveClient')->name('set_inactive_client');
+        Route::get('/change-status/active/{client}', 'setActiveClient')->name('set_active_client');
+
+        Route::get('/all-restuarants', 'allRestuarants')->name('all_restuarants');
+        Route::get('/pending-all-restuarants', 'getPendingRestuarants')->name('pending_restuarants');
+        Route::get('/approved-all-restuarants', 'getApprovedRestuarants')->name('approved_restuarants');
+
+        Route::get('/restuarant/edit/{client}', 'edit')->name('edit_restuarant');
+        Route::get('/restuarant/create', 'create')->name('add_restuarant');
+        Route::post('/restuarant/store', 'store')->name('restuarant_store');
+        Route::patch('/restuarant/update/{client}', 'update')->name('restuarant_update');
+        Route::get('/restuarant/delete/{client}', 'destroy')->name('restuarant_delte');
+    });
+    // restuarant management route end 
 
 
 });

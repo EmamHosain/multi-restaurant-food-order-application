@@ -64,7 +64,11 @@ class MenuController extends Controller
 
     public function edit(Request $request, Menu $menu)
     {
-        return view('client.backend.menu.edit_menu', compact('menu'));
+        $id = Auth::guard('client')->id();
+        $menus = Menu::where('client_id', $id)->orderByDesc('id')->get();
+        return view('client.backend.menu.edit_menu', [
+            'menu' => $menus
+        ]);
     }
 
 

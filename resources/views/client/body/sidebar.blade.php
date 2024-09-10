@@ -19,6 +19,8 @@ $status = $client->status;
                         <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
+
+
                 @if ($status === '1')
 
                 <li>
@@ -122,9 +124,6 @@ $status = $client->status;
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.client.orders') }}">
-                                <span data-key="t-calendar">All Orders</span>
-                            </a> --}}
 
                             <a href="#">
                                 <span data-key="t-calendar">All Orders</span>
@@ -167,8 +166,6 @@ $status = $client->status;
                         </li>
                     </ul>
                 </li>
-
-                @else
 
                 @endif
 
