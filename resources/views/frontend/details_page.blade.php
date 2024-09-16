@@ -14,6 +14,8 @@ $coupons =
 App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('validity_date','>=',Carbon\Carbon::now())->first();
 @endphp
 
+
+
 <section class="restaurant-detailed-banner">
    <div class="text-center">
       <img class="img-fluid cover" style="width: 100%"
@@ -48,6 +50,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
    </div>
    </div>
 </section>
+
+
+
 <section class="offer-dedicated-nav bg-white border-top-0 shadow-sm">
    <div class="container">
       <div class="row">
@@ -86,6 +91,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
       </div>
    </div>
 </section>
+
+
+
 <section class="offer-dedicated-body pt-2 pb-2 mt-4 mb-4">
    <div class="container">
       <div class="row">
@@ -125,7 +133,8 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                                     $<del>{{$populer->price}}</del> ${{$populer->discount_price}}
                                     @endif
                                     <span class="float-right">
-                                       <a class="btn btn-outline-secondary btn-sm" href="#">ADD</a>
+                                       <a class="btn btn-outline-secondary btn-sm"
+                                          href="{{ route('user.cart.add_to_cart',$populer->id) }}">ADD</a>
                                     </span>
                                  </a>
                               </div>
@@ -180,7 +189,8 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                                        @endif
                                        <span class="float-right">
-                                          <a class="btn btn-outline-secondary btn-sm" href="#">ADD</a>
+                                          <a class="btn btn-outline-secondary btn-sm"
+                                             href="{{ route('user.cart.add_to_cart',$bestseller->id) }}">ADD</a>
                                        </span>
                                     </p>
                                  </div>
@@ -203,9 +213,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                               @foreach ($menu->products as $product)
                               <div class="menu-list p-3 border-bottom">
-                                 {{-- <a class="btn btn-outline-secondary btn-sm  float-right"
-                                    href="{{ route('add_to_cart',$product->id)}}">ADD</a> --}}
-                                 <a class="btn btn-outline-secondary btn-sm  float-right" href="#">ADD</a>
+
+                                 <a class="btn btn-outline-secondary btn-sm  float-right"
+                                    href="{{ route('user.cart.add_to_cart',$product->id) }}">ADD</a>
                                  <div class="media">
                                     <img class="mr-3 rounded-pill" src="{{ asset($product->image) }}"
                                        alt="Generic placeholder image">
@@ -563,8 +573,12 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                <div class="bg-white rounded shadow-sm mb-2">
 
                   @php $total = 0 @endphp
+
+
                   @if (session('cart'))
                   @foreach (session('cart') as $id => $details)
+
+
                   @php
                   $total += $details['price'] * $details['quantity']
                   @endphp
@@ -573,14 +587,18 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                      <p class="text-gray mb-0 float-right ml-2">${{ $details['price'] * $details['quantity'] }}</p>
                      <span class="count-number float-right">
 
+                        {{-- quantity descrement button --}}
                         <button class="btn btn-outline-secondary  btn-sm left dec" data-id="{{ $id }}"> <i
                               class="icofont-minus"></i> </button>
 
+                        {{-- show quantity button --}}
                         <input class="count-number-input" type="text" value="{{  $details['quantity'] }}" readonly="">
 
+                        {{-- quantity increment button --}}
                         <button class="btn btn-outline-secondary btn-sm right inc" data-id="{{ $id }}"> <i
                               class="icofont-plus"></i> </button>
 
+                        {{-- remove to cart button --}}
                         <button class="btn btn-outline-danger btn-sm right remove" data-id="{{ $id }}"> <i
                               class="icofont-trash"></i> </button>
                      </span>
@@ -592,6 +610,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                      </div>
                   </div>
                   @endforeach
+
+
+
                   @endif
 
 
@@ -638,7 +659,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                         <button class="btn btn-primary" type="submit" id="button-addon2" onclick="ApplyCoupon()"><i
                               class="icofont-sale-discount"></i> APPLY</button>
                      </div>
-                  </div>ut
+                  </div>
                </div>
                @endif
 
@@ -691,13 +712,69 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
          }
       });
 
+
+
+      // update and remove function 
+      function updateQuantity(id,quantity){
+        
+         $.ajax({
+            url: "{{ route('user.cart.update_cart_quanaity') }}",
+            method: 'POST',
+            data : {
+               _token : "{{ csrf_token() }}",
+               id: id,
+               quantity : quantity,
+            },
+
+            success: function(data){
+               Toast.fire({
+                  icon: 'success',
+                  title : data.message,
+
+               }).then(() => {
+               location.reload();
+
+               })
+               
+            }
+         })
+      }
+
+      // remove quantity
+      function removeFromCart(id){
+      $.ajax({
+            url: "{{ route('user.cart.remove_cart') }}",
+            method: 'POST',
+            data : {
+               _token : "{{ csrf_token() }}",
+               id: id,
+            },
+
+            success: function(data){
+               Toast.fire({
+                  icon: 'success',
+                  title : data.message,
+
+               }).then(() => {
+               location.reload();
+
+               })
+            }
+         })
+      }
+
+
+
+      // increment method
       $('.inc').on('click', function() {
          var id = $(this).data('id');
-         var input = $(this).closest('span').find('input');
+         var input = $(this).closest('span').find('input'); // find input element from span element
          var newQuantity = parseInt(input.val()) + 1;
          updateQuantity(id,newQuantity);
       });
 
+
+      // decrement method
       $('.dec').on('click', function() {
          var id = $(this).data('id');
          var input = $(this).closest('span').find('input');
@@ -707,20 +784,12 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
          } 
       });
 
-      $('.remove').on('click', function() {
+      $('.remove').on('click', function(event) {
          var id = $(this).data('id');
          removeFromCart(id);
       });
 
-      function updateQuantity(id,quantity){
-         // cart.updateQuantity here
-      }
-
-      function removeFromCart(id){
-      //   cart.removeQuantity here
-      }
-
- 
+      
 
    })
 </script>

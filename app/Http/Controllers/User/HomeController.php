@@ -14,9 +14,13 @@ class HomeController extends Controller
     {
 
         // get all menu where menu's product in not empty
-        $menus = Menu::with('products')->orderByDesc('id')->get()->filter(function ($menu) {
-            return $menu->products->isNotEmpty();
-        });
+        $menus = Menu::with('products')
+            ->where('client_id', $client->id)
+            ->orderByDesc('id')
+            ->get()
+            ->filter(function ($menu) {
+                return $menu->products->isNotEmpty();
+            });
 
         return view('frontend.details_page', [
             'client' => $client,
@@ -26,5 +30,5 @@ class HomeController extends Controller
     }
 
 
-   
+
 }

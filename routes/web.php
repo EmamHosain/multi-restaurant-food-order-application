@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\WishlistController;
@@ -32,8 +33,6 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     // wishlist auth route start here
     Route::get('/my-wishlists', [WishlistController::class, 'getAllWishlists'])->name('get_all_wishlists');
     Route::get('/remove-wishlist/{id}', [WishlistController::class, 'removeWishlist'])->name('remove_wishlist');
-
-
     // wishlist auth route end here
 
 
@@ -46,3 +45,16 @@ Route::get('/restuarant-details/{client}', [HomeController::class, 'getRestuaran
 
 // wishlist route 
 Route::get('/restuarant/add-to-wishlist/{client}', [WishlistController::class, 'restuarantAddToWishList'])->name('restuarant_add_to_withlist');
+
+
+// user cart route start here
+Route::controller(CartController::class)->name('user.cart.')->group(function () {
+    Route::get('/add-to-cart/{product}', 'addToCart')->name('add_to_cart');
+
+    Route::post('/update-cart-quantity', 'updateCartQuantity')->name('update_cart_quanaity');
+    
+    Route::post('/remove-from-cart', 'removeFromCart')->name('remove_cart');
+
+
+
+});
