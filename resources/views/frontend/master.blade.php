@@ -37,7 +37,7 @@
       @include('frontend.layouts.banner')
 
    </div>
-   {{-- @include('frontend.layouts.ads') --}}
+   @include('frontend.layouts.ads')
 
    @yield('content')
 
@@ -59,33 +59,11 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-   <script>
-      @if(Session::has('message'))
-       var type = "{{ Session::get('alert-type','info') }}"
-       switch(type){
-          case 'info':
-          toastr.info(" {{ Session::get('message') }} ");
-          break;
-      
-          case 'success':
-          toastr.success(" {{ Session::get('message') }} ");
-          break;
-      
-          case 'warning':
-          toastr.warning(" {{ Session::get('message') }} ");
-          break;
-      
-          case 'error':
-          toastr.error(" {{ Session::get('message') }} ");
-          break; 
-       }
-       @endif 
-   </script>
-
 
 
    {{-- ------------ Wishlist Add Start ----------- --}}
    <script type="text/javascript">
+      // csrf token default setup
       $.ajaxSetup({
             headers:{
                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
@@ -95,12 +73,12 @@
       function addWishList(id){
          //alert(id)
          $.ajax({
-            type: "POST",
+            type: "GET",
             dataType:"json",
-            url:"/add-wish-list/"+id,
+            url:"{{ route('restuarant_add_to_withlist',':id')}}".replace(':id', id),
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success:function(data){
-
+            console.log(data)
               // Start Message 
 
             const Toast = Swal.mixin({
@@ -132,7 +110,31 @@
 
       }    
 
+
+
+      @if(Session::has('message'))
+       var type = "{{ Session::get('alert-type','info') }}"
+       switch(type){
+          case 'info':
+          toastr.info(" {{ Session::get('message') }} ");
+          break;
+      
+          case 'success':
+          toastr.success(" {{ Session::get('message') }} ");
+          break;
+      
+          case 'warning':
+          toastr.warning(" {{ Session::get('message') }} ");
+          break;
+      
+          case 'error':
+          toastr.error(" {{ Session::get('message') }} ");
+          break; 
+       }
+       @endif 
+
    </script>
+
 
 </body>
 </html>

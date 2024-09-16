@@ -17,13 +17,9 @@ class ClientActiveCheckMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $client = Auth::guard('client')->user();
-        $notification = [
-            'message' => 'Please wait for a minute. Admin will activate your account.',
-            'alert-type' => 'warning'
-        ];
 
-        if ($client->status == 0) {
-            return redirect()->route('client.dashboard')->with($notification);
+        if ($client && $client->status == 0) {
+            abort(403, 'Unauthorized');
         }
         return $next($request);
     }

@@ -32,7 +32,7 @@
                                 <div class="d-flex align-items-start mt-3 mt-sm-0">
                                     <div class="flex-shrink-0">
                                         <div class="avatar-xl me-3">
-                                            <img src="{{ (!empty($profileData->photo)) ? url('upload/client_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
+                                            <img src="{{ (!empty($profileData->photo)) ? url($profileData->photo) : url('upload/no_image.jpg') }}"
                                                 alt="" class="img-fluid rounded-circle d-block">
                                         </div>
                                     </div>
@@ -126,9 +126,10 @@
                                     <div class="mb-3">
                                         <img id="cover_photo_show"
                                             src="{{ !empty($profileData->cover_photo) ? url($profileData->cover_photo) : url('upload/no_image.jpg') }}"
-                                            alt="Cover Photo" class="border border-primary" width="200" height="110" style="object-fit: cover; float: left;">
+                                            alt="Cover Photo" class="border border-primary" width="200" height="110"
+                                            style="object-fit: cover; float: left;">
                                     </div>
-                                    
+
 
 
                                 </div>

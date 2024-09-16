@@ -52,7 +52,7 @@ class ProductController extends Controller
             'discount_price' => 'nullable|numeric|min:0|lt:price',
             'size' => 'nullable|string|max:50',
             'qty' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'best_seller' => 'integer',
             'most_popular' => 'integer',
             'status' => 'required'
@@ -139,7 +139,7 @@ class ProductController extends Controller
             'discount_price' => 'nullable|numeric|min:0|lt:price',
             'size' => 'nullable|string|max:50',
             'qty' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'best_seller' => 'integer',
             'most_popular' => 'integer',
             'status' => 'required'

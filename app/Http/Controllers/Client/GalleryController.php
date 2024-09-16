@@ -32,7 +32,7 @@ class GalleryController extends Controller
         // Validate multiple image uploads
         $request->validate([
             'image' => 'required|array', // Ensure image field is an array
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Each image should be valid
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', // Each image should be valid
         ]);
 
         // Handle multiple image uploads
@@ -43,7 +43,7 @@ class GalleryController extends Controller
 
                 $manager = new ImageManager(new Driver());
                 $img = $manager->read($image);
-                $img->resize(500, 350)->save(public_path('upload/gallery/' . $image_name));
+                $img->resize(800, 800)->save(public_path('upload/gallery/' . $image_name));
                 // Store image path in the database
                 $image_with_full_path = 'upload/gallery/' . $image_name;
                 Gallery::create([
@@ -79,7 +79,7 @@ class GalleryController extends Controller
     {
         // Validate multiple image uploads
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
 
@@ -101,7 +101,7 @@ class GalleryController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(500, 350)->save(public_path('upload/gallery/' . $image_name));
+            $img->resize(800, 800)->save(public_path('upload/gallery/' . $image_name));
             // Store image path in the database
             $image_with_full_path = 'upload/gallery/' . $image_name;
 

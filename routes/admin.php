@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageRestuarantController;
@@ -81,5 +82,17 @@ Route::middleware(['adminAuth'])->group(function () {
     });
     // restuarant management route end 
 
+
+
+    // banner manage route start 
+    Route::controller(BannerController::class)->group(function () {
+        Route::get('/all-banners', 'index')->name('all_banners');
+        Route::get('/banner/create', 'create')->name('banner_create');
+        Route::post('/banner/store', 'store')->name('banner_store');
+        Route::get('/banner/edit/{banner}', 'edit')->name('banner_edit');
+        Route::patch('/banner/update/{banner}', 'update')->name('banner_update');
+        Route::get('/banner/delete/{banner}', 'destroy')->name('banner_delete');
+    });
+    // banner manage route end 
 
 });

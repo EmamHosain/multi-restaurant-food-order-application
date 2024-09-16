@@ -128,13 +128,17 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.banner') }}">
-                                <span data-key="t-calendar">All Banner </span>
-                            </a> --}}
-                            <a href="#">
+
+                            <a href="{{ route('admin.all_banners') }}">
                                 <span data-key="t-calendar">All Banner </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.banner_create') }}">
+                                <span data-key="t-calendar">Add Banner </span>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </li>

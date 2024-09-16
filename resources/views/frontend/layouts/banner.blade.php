@@ -40,7 +40,7 @@
             </div>
             <h6 class="mt-4 text-shadow text-white font-weight-normal">E.g. Beverages, Pizzas, Chinese, Bakery,
                Indian...</h6>
-            {{-- <div class="owl-carousel owl-carousel-category owl-theme">
+            <div class="owl-carousel owl-carousel-category owl-theme">
                @php
                $products = App\Models\Product::latest()->limit(8)->get();
                @endphp
@@ -55,10 +55,7 @@
                   </div>
                </div>
                @endforeach
-
-
-
-            </div> --}}
+            </div>
          </div>
 
       </div>

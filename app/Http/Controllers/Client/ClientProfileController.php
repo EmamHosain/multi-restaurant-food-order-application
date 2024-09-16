@@ -38,7 +38,7 @@ class ClientProfileController extends Controller
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,png,jpeg',
-            'cover_photo' => 'nullable|image|mimes:jpg,png,jpeg',
+            'cover_photo' => 'nullable|image|mimes:jpg,png,jpeg,webp',
 
             'city_id' => 'nullable',
             'shop_info' => 'nullable|string',
@@ -96,7 +96,9 @@ class ClientProfileController extends Controller
             // Resize and store image
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->cover(1200, 360)->save(public_path('upload/cover_photo/' . $image_name));
+            $img->resize(400,400)->save(public_path('upload/cover_photo/' . $image_name));
+
+            // $img->cover(1200, 360)->save(public_path('upload/cover_photo/' . $image_name));
 
             // Store image path in the database
             $validatedData['cover_photo'] = 'upload/cover_photo/' . $image_name;
