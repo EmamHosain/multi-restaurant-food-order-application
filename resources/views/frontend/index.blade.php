@@ -47,7 +47,7 @@
                      <div class="favourite-heart text-danger position-absolute">
 
 
-                        <a href="#" aria-level="add to withlist" onclick="addWishList({{$client->id}})"><i
+                        <a href="#" aria-level="add to withlist" onclick="addWishList(event,{{$client->id}})"><i
                               class="icofont-heart"></i></a>
 
 

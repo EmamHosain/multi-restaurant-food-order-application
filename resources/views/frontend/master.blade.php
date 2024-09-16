@@ -70,8 +70,9 @@
             }
          });
 
-      function addWishList(id){
-         //alert(id)
+      function addWishList(event,id){
+       if(event) event.preventDefault();
+        
          $.ajax({
             type: "GET",
             dataType:"json",

@@ -19,25 +19,26 @@
                         <h4 class="font-weight-bold mt-0 mb-4">Favourites</h4>
                         <div class="row">
 
-                            @foreach ($wishlist as $wish)
+                            @foreach ($wishlists as $wish)
                             <div class="col-md-4 col-sm-6 mb-4 pb-2">
                                 <div
                                     class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                     <div class="list-card-image">
 
-                                        <a href="{{ route('res.details',$wish->client_id) }}">
-                                            <img src="{{ asset('upload/client_images/' . $wish['client']['photo']) }}"
-                                                class="img-fluid item-img" style="width: 300px; height:200px;">
+                                        <a href="{{ route('restuarant_details',$wish->client_id) }}">
+                                            <img src="{{ asset( $wish->client->photo) }}" class="img-fluid item-img"
+                                                style="width: 300px; height:200px;">
                                         </a>
                                     </div>
                                     <div class="p-3 position-relative">
                                         <div class="list-card-body">
-                                            <h6 class="mb-1"><a href="{{ route('res.details',$wish->client_id) }}"
-                                                    class="text-black">{{$wish['client']['name']}}
+                                            <h6 class="mb-1"><a
+                                                    href="{{ route('restuarant_details',$wish->client_id) }}"
+                                                    class="text-black">{{$wish->client->name}}
                                                 </a>
                                             </h6>
                                             <div style="float:right; margin-bottom:5px">
-                                                <a href="{{ route('remove.wishlist',$wish->id) }}"
+                                                <a href="{{ route('user.remove_wishlist',$wish->client->id) }}"
                                                     class="badge badge-danger">
                                                     <i class="icofont-ui-delete"></i>
                                                 </a>

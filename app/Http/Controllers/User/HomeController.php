@@ -26,10 +26,5 @@ class HomeController extends Controller
     }
 
 
-    public function restuarantAddToWishList(Client $client)
-    {
-        return response()->json([
-            'client' => $client
-        ]);
-    }
+   
 }

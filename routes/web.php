@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,15 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/update-password', [UserController::class, 'getUpdatePasswordPage'])->name('update_password');
     Route::patch('/update-password', [UserController::class, 'updatePasswordSubmit'])->name('update_password_submit');
 
+
+    // wishlist auth route start here
+    Route::get('/my-wishlists', [WishlistController::class, 'getAllWishlists'])->name('get_all_wishlists');
+    Route::get('/remove-wishlist/{id}', [WishlistController::class, 'removeWishlist'])->name('remove_wishlist');
+
+
+    // wishlist auth route end here
+
+
 });
 
 require __DIR__ . '/auth.php';
@@ -35,4 +45,4 @@ require __DIR__ . '/auth.php';
 Route::get('/restuarant-details/{client}', [HomeController::class, 'getRestuarantDetailsPage'])->name('restuarant_details');
 
 // wishlist route 
-Route::get('/restuarant/add-to-wishlist/{client}', [HomeController::class, 'restuarantAddToWishList'])->name('restuarant_add_to_withlist');
+Route::get('/restuarant/add-to-wishlist/{client}', [WishlistController::class, 'restuarantAddToWishList'])->name('restuarant_add_to_withlist');
