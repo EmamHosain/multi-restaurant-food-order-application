@@ -198,8 +198,6 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                            </div>
                         </div>
                         @endforeach
-
-
                      </div>
 
 
@@ -552,9 +550,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                   <img class="img-fluid float-left mr-3" src="{{ asset('frontend/img/earn-score-icon.png') }}">
                   <h6 class="pt-0 text-primary mb-1 font-weight-bold">OFFER</h6>
 
-                  {{-- <pre>{{ print_r(Session::get('coupon'), true) }}</pre> --}}
+                  <pre>{{ print_r(Session::get('coupon'), true) }}</pre>
 
-                  @if ($coupon == NULL)
+                  @if (!$coupon || $coupon->discount == null || $coupon->status == 0)
                   <p class="mb-0">No Coupon is Available </p>
                   @else
                   <p class="mb-0">{{ $coupon->discount }}% off on orders above $99 | Use coupon <span
@@ -620,14 +618,17 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                @if (Session::has('coupon'))
                <div class="mb-2 bg-white rounded p-2 clearfix">
-                  <p class="mb-1">Item Total <span class="float-right text-dark">{{ count((array) session('cart'))
-                        }}</span></p>
+                  <p class="mb-1">Item Total <span class="float-right text-dark">{{ count((array)
+                        session('cart'))}}</span></p>
 
                   <p class="mb-1">Coupon Name <span class="float-right text-dark">{{
                         (session()->get('coupon')['coupon_name']) }} ( {{ (session()->get('coupon')['discount']) }} %)
                      </span>
+
                      <a type="submit" onclick="couponRemove()"><i class="icofont-ui-delete float-right"
-                           style="color: red;"></i></a>
+                           style="color: red;"></i>
+
+                     </a>
                   </p>
 
 
@@ -645,7 +646,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                   <hr />
                   <h6 class="font-weight-bold mb-0">TO PAY <span class="float-right">
                         @if (Session::has('coupon'))
-                        ${{ Session()->get('coupon')['discount_amount'] }}
+                        ${{ round(Session()->get('coupon')['discount_amount']) }}
                         @else
                         ${{ $total }}
                         @endif</span></h6>
@@ -654,9 +655,12 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                @else
                <div class="mb-2 bg-white rounded p-2 clearfix">
                   <div class="input-group input-group-sm mb-2">
+                     {{-- coupon show filed --}}
                      <input type="text" class="form-control" placeholder="Enter promo code" id="coupon_name">
+
                      <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit" id="button-addon2" onclick="ApplyCoupon()"><i
+                        {{-- apply coupon button onlick --}}
+                        <button class="btn btn-primary" type="button" id="button-addon2" onclick="ApplyCoupon()"><i
                               class="icofont-sale-discount"></i> APPLY</button>
                      </div>
                   </div>
@@ -669,7 +673,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                   <img class="img-fluid float-left" src="{{ asset('frontend/img/wallet-icon.png') }}">
                   <h6 class="font-weight-bold text-right mb-2">Subtotal : <span class="text-danger">
                         @if (Session::has('coupon'))
-                        ${{ Session()->get('coupon')['discount_amount'] }}
+                        ${{ round(Session()->get('coupon')['discount_amount']) }}
                         @else
                         ${{ $total }}
                         @endif

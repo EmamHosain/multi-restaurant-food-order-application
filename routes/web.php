@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CouponController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\WishlistController;
@@ -50,11 +51,18 @@ Route::get('/restuarant/add-to-wishlist/{client}', [WishlistController::class, '
 // user cart route start here
 Route::controller(CartController::class)->name('user.cart.')->group(function () {
     Route::get('/add-to-cart/{product}', 'addToCart')->name('add_to_cart');
-
     Route::post('/update-cart-quantity', 'updateCartQuantity')->name('update_cart_quanaity');
-    
     Route::post('/remove-from-cart', 'removeFromCart')->name('remove_cart');
-
-
-
 });
+
+
+// user coupon route start here
+Route::controller(CouponController::class)->name('user.coupon.')->group(function () {
+
+    Route::post('apply-coupon', 'applyCoupon')->name('apply_coupon');
+
+    Route::get('remove-coupon', 'removeCoupon')->name('remove_coupon');
+
+   
+});
+// user coupon route end here

@@ -67,12 +67,14 @@ class CouponController extends Controller
 
     public function update(Request $request, Coupon $coupon)
     {
+        // dd($request->all());
         // Validate the request data
         $request->validate([
             'coupon_name' => 'required|string|max:255',
             'coupon_desc' => 'nullable|string',
             'validity_date' => 'required|date',
             'discount' => 'required|numeric|min:0',
+            'status' => 'nullable|numeric|between:0,1'
         ]);
 
         // Create a new Coupon instance
@@ -81,6 +83,10 @@ class CouponController extends Controller
         $coupon->validity_date = $request->input('validity_date');
         $coupon->discount = $request->input('discount');
         $coupon->created_at = Carbon::now();
+
+        // Update status only if present in the request
+        $coupon->status = $request->has('status') ? $request->input('status') : 0;
+
 
 
         // Save the Coupon

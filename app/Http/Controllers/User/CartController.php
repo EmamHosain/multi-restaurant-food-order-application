@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,6 +9,10 @@ class CartController extends Controller
 {
     public function addToCart(Product $product)
     {
+
+        if(session()->has('coupon')){
+            session()->forget('coupon');
+        }
 
         $product_id = $product->id;
 
@@ -43,6 +46,9 @@ class CartController extends Controller
     public function updateCartQuantity(Request $request)
     {
 
+        if(session()->has('coupon')){
+            session()->forget('coupon');
+        }
         $product_id = $request->input('id');
         $quanaity = $request->input('quantity');
 

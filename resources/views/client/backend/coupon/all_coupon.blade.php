@@ -12,7 +12,8 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <a href="{{ route('client.coupon_create') }}" class="btn btn-primary waves-effect waves-light">Add
+                            <a href="{{ route('client.coupon_create') }}"
+                                class="btn btn-primary waves-effect waves-light">Add
                                 Coupon</a>
                         </ol>
                     </div>
@@ -51,12 +52,16 @@
                                     <td>{{ $item->coupon_name }}</td>
                                     <td>{{ Str::limit($item->coupon_desc, 20) }}</td>
                                     <td>{{ $item->discount }}</td>
-                                    <td>{{ Carbon\Carbon::parse($item->validity_date)->format('D,d F Y') }}</td>
+
+                                    <td>
+                                        {{Carbon\Carbon::parse($item->validity_date)->setTimezone('Asia/Dhaka')->format('D,d F Y - h:i A') }}
+                                    </td>
 
 
 
                                     <td>
-                                        @if ($item->validity_date >= Carbon\Carbon::now()->format('Y-m-d'))
+                                        @if ($item->validity_date >= Carbon\Carbon::now()->format('Y-m-d') &&
+                                        $item->status != 0)
                                         <span class="badge rounded-pill bg-success">Valid</span>
                                         @else
                                         <span class="badge rounded-pill bg-danger">Invalid</span>
@@ -64,7 +69,7 @@
                                     </td>
 
                                     <td>
-                                       {{ Carbon\Carbon::parse($item->created_at)->format('D,d F Y') }}
+                                        {{Carbon\Carbon::parse($item->created_at)->setTimezone('Asia/Dhaka')->format('D, d F Y - h:i A') }}
                                     </td>
 
                                     <td><a href="{{ route('client.coupon_edit',$item->id) }}"

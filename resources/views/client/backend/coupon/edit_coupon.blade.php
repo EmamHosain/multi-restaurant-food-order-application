@@ -70,7 +70,7 @@
                                     is-invalid 
                                  @enderror">Coupon Validity </label>
                                         <input class="form-control" type="date" name="validity_date"
-                                            id="example-text-input" 
+                                            id="example-text-input"
                                             value="{{ old('validity_date',$coupon->validity_date) }}">
 
                                         @error('validity_date')
@@ -78,6 +78,24 @@
                                         @enderror
                                     </div>
                                 </div>
+
+
+
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select name="status" class="form-select @error('status') is-invalid @enderror">
+                                            <option value="1" {{ $coupon->status == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ $coupon->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                        @error('status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+
 
 
                                 <div class="col-xl-6 col-md-6">
@@ -91,8 +109,9 @@
                                         </textarea> --}}
 
                                         <textarea class="form-control" name="coupon_desc" id="coupon_desc"
-                                        placeholder="Coupon description" id="floatingTextarea2"
-                                            style="height: 100px; text-align: left;">{{ $coupon->coupon_desc ?? '' }}</textarea>
+                                            placeholder="Coupon description" id="floatingTextarea2"
+                                            style="height: 100px; text-align: left;">{{ $coupon->coupon_desc ?? ''
+                                            }}</textarea>
 
                                         {{-- Error message --}}
                                         @error('coupon_desc')

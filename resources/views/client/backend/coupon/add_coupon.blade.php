@@ -83,10 +83,13 @@
                                         @enderror
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-xl-6 col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="city_id" class="form-label">Status</label>
-                                        <select name="city_id" class="form-select @error('status')
+                                        <label for="status" class="form-label">Status</label>
+                                        <select name="status" class="form-select @error('status')
                                             is-invalid
                                         @enderror">
                                             <option value="" selected>Select status</option>
