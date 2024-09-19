@@ -10,8 +10,17 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    public function home()
+    {
+        if (session()->has('client_id')) {
+            session()->forget('client_id');
+        }
+        return view('frontend.index');
+    }
     public function getRestuarantDetailsPage(Client $client)
     {
+
+        session()->put('client_id', $client->id);
 
         // get all menu where menu's product in not empty
         $menus = Menu::with('products')

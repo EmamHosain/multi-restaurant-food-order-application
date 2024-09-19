@@ -45,9 +45,7 @@ class ClientProfileController extends Controller
 
         ]);
 
-        // if (!$request->input('city_id')) {
-        //     unset($validatedData['city_id']);
-        // }
+       
         // Get the authenticated Client user
         $id = Auth::guard('client')->id();
         $client = Client::find($id);

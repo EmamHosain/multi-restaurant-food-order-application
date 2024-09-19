@@ -100,6 +100,7 @@
                   <div class="dropdown-cart-top-body border-top p-4">
                      @php $total = 0 @endphp
                      @if (session('cart'))
+
                      @foreach (session('cart') as $id => $details)
                      @php
                      $total += $details['price'] * $details['quantity']
@@ -109,6 +110,8 @@
                         $details['quantity'] }} <span class="float-right text-secondary">${{ $details['price'] *
                            $details['quantity'] }}</span></p>
                      @endforeach
+
+                     
                      @endif
 
                   </div>
@@ -122,9 +125,8 @@
 
                   </div>
                   <div class="dropdown-cart-top-footer border-top p-2">
-                     {{-- <a class="btn btn-success btn-block btn-lg" href="{{ route('checkout') }}"> Checkout</a> --}}
-                     <a class="btn btn-success btn-block btn-lg" href="#"> Checkout</a>
-
+                     <a class="btn btn-success btn-block btn-lg" href="{{ route('user.checkout.checkout') }}">
+                        Checkout</a>
                   </div>
                </div>
             </li>

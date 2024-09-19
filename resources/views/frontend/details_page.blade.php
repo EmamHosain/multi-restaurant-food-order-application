@@ -682,9 +682,8 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                </div>
 
-               {{-- <a href="{{ route('checkout') }}" class="btn btn-success btn-block btn-lg">Checkout <i
-                     class="icofont-long-arrow-right"></i></a> --}}
-               <a href="#" class="btn btn-success btn-block btn-lg">Checkout <i
+
+               <a href="{{ route('user.checkout.checkout') }}" class="btn btn-success btn-block btn-lg">Checkout <i
                      class="icofont-long-arrow-right"></i></a>
             </div>
 

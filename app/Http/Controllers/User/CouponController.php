@@ -32,11 +32,11 @@ class CouponController extends Controller
 
                 if (count(array_unique($clientIds)) == 1 && $coupon->client_id == $clientIds[0]) {
 
+                    $discount_amount = $totalAmount - ($totalAmount * $coupon->discount / 100);
                     session()->put('coupon', [
                         'coupon_name' => $coupon->coupon_name,
                         'discount' => $coupon->discount,
-                        'discount_amount' => $totalAmount - ($totalAmount * $coupon->discount / 100),
-
+                        'discount_amount' => round($discount_amount),
                     ]);
 
                     $couponData = session()->get('coupon', []);

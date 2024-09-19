@@ -99,8 +99,7 @@
                   $client = $clients[$clientId];
                   @endphp
                   <div class="dropdown-cart-top-header p-4">
-                     <img class="img-fluid mr-3" alt="osahan"
-                        src="{{ asset('upload/client_images/' . $client->photo) }}">
+                     <img class="img-fluid mr-3" alt="osahan" src="{{ asset( $client->photo) }}">
                      <h6 class="mb-0">{{ $client->name }}</h6>
                      <p class="text-secondary mb-0">{{ $client->address }}</p>
                   </div>
@@ -134,7 +133,7 @@
                   </div>
                   <div class="dropdown-cart-top-footer border-top p-2">
                      {{-- <a class="btn btn-success btn-block btn-lg" href="{{ route('checkout') }}"> Checkout</a> --}}
-                     <a class="btn btn-success btn-block btn-lg" href="#"> Checkout</a>
+                     <a class="btn btn-success btn-block btn-lg" href="{{ route('user.checkout.checkout') }}"> Checkout</a>
 
                   </div>
                </div>

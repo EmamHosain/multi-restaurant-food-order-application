@@ -10,7 +10,7 @@ class CartController extends Controller
     public function addToCart(Product $product)
     {
 
-        if(session()->has('coupon')){
+        if (session()->has('coupon')) {
             session()->forget('coupon');
         }
 
@@ -46,7 +46,7 @@ class CartController extends Controller
     public function updateCartQuantity(Request $request)
     {
 
-        if(session()->has('coupon')){
+        if (session()->has('coupon')) {
             session()->forget('coupon');
         }
         $product_id = $request->input('id');
@@ -72,6 +72,10 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request)
     {
+        if (session()->has('coupon')) {
+            session()->forget('coupon');
+        }
+
 
         $product_id = $request->input('id');
 
