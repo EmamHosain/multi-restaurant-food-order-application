@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->string('processing_date')->nullable();
             $table->string('shipped_date')->nullable();
             $table->string('delivered_date')->nullable();
+            
             $table->string('status');
             $table->timestamps();
         });

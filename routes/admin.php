@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageRestuarantController;
+use App\Http\Controllers\Admin\OrderManageController;
 use App\Http\Controllers\Admin\ProductManageController;
 use Illuminate\Support\Facades\Route;
 
@@ -94,5 +95,53 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::get('/banner/delete/{banner}', 'destroy')->name('banner_delete');
     });
     // banner manage route end 
+
+
+
+    // banner manage route start 
+    Route::controller(OrderManageController::class)->group(function () {
+        Route::get('/order-details/{id}', 'orderDetails')
+            ->name('order_details');
+
+
+        Route::get('/pending-orders', 'pendingOrders')
+            ->name('pending_orders');
+
+        Route::get('/processing-orders', 'processingOrders')
+            ->name('processing_orders');
+
+        Route::get('/confirmed-orders', 'confirmedOrders')
+            ->name('confirmed_orders');
+            
+        Route::get('/deliverd-orders', 'deliverdOrders')
+            ->name('deliverd_orders');
+
+
+
+        // pending to confirm order 
+        Route::get('/pending-to-confirm-order/{order}', 'pendintToConfirm')
+            ->name('pendint_to_confirm_order');
+
+
+        // confirm to processing order 
+        Route::get('/confirm-to-processing/{order}', 'confirmToProcessing')
+            ->name('confirm_to_processing_order');
+
+
+        //  processing to deliveried order 
+        Route::get('/processing-to-deliverd/{order}', 'processingToDeliverd')
+            ->name('processing_to_deliverd_order');
+    });
+    // banner manage route end 
+
+
+
+
+
+
+
+
+
+
 
 });

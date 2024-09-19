@@ -143,41 +143,37 @@
                     </ul>
                 </li>
 
+                {{-- manage orders --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="grid"></i>
                         <span data-key="t-apps">Manage Orders</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+
                         <li>
-                            {{-- <a href="{{ route('pending.order') }}">
-                                <span data-key="t-calendar">Pending Orders </span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.pending_orders') }}">
                                 <span data-key="t-calendar">Pending Orders </span>
                             </a>
                         </li>
+
+
                         <li>
-                            {{-- <a href="{{ route('confirm.order') }}">
-                                <span data-key="t-calendar">Confirm Orders </span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.confirmed_orders') }}">
                                 <span data-key="t-calendar">Confirm Orders </span>
                             </a>
                         </li>
+
+
                         <li>
-                            {{-- <a href="{{ route('processing.order') }}">
-                                <span data-key="t-calendar">Processing Orders </span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.processing_orders') }}">
                                 <span data-key="t-calendar">Processing Orders </span>
                             </a>
                         </li>
+
+
                         <li>
-                            {{-- <a href="{{ route('deliverd.order') }}">
-                                <span data-key="t-calendar">Deliverd Orders </span>
-                            </a> --}}
-                            <a href="#">
+                            <a href="{{ route('admin.deliverd_orders') }}">
                                 <span data-key="t-calendar">Deliverd Orders </span>
                             </a>
                         </li>
