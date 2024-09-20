@@ -2,6 +2,7 @@
 use App\Http\Controllers\Client\CouponController;
 use App\Http\Controllers\Client\GalleryController;
 use App\Http\Controllers\Client\MenuController;
+use App\Http\Controllers\Client\OrderManageController;
 use App\Http\Controllers\Client\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\ClientController;
@@ -87,6 +88,17 @@ Route::middleware(['clientAuth', 'checkInactiveClientAccount'])->group(function 
         Route::get('/coupon/delete/{coupon}', 'destroy')->name('coupon_delete');
     });
     // coupon route end
+
+
+
+
+    // client all order manage route start here
+    Route::controller(OrderManageController::class)->group(function () {
+        Route::get('/all-orders', 'getAllClientsOrder')->name('get_all_clients_order');
+        Route::get('/order-details/{id}', 'orderDetails')->name('order_details');
+    });
+    // client all order manage route end here
+
 
 
 

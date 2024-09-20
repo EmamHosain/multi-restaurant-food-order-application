@@ -4,11 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\City;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Gallery;
 use App\Models\Menu;
-use App\Models\Product;
+use App\Models\OrderItem;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Client;
+use App\Models\Gallery;
+use App\Models\Product;
 use App\Models\Category;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
@@ -30,9 +32,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => Hash::make('password'),
         ]);
-
+        User::factory()->count(100)->create();
         $faker = Faker::create();
-
         Client::create([
             'name' => 'client',
             'email' => 'client@gmail.com',
@@ -47,14 +48,13 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
         Client::factory()->count(10)->create();
-        Category::factory()->count(10)->create();
-        City::factory()->count(10)->create();
-        Menu::factory()->count(10)->create();
-        Product::factory()->count(10)->create();
+        Category::factory()->count(70)->create();
+        City::factory()->count(20)->create();
+        Menu::factory()->count(100)->create();
+        Product::factory()->count(200)->create();
         Gallery::factory()->count(20)->create();
-
-
-
+        Order::factory()->count(100)->create();
+        OrderItem::factory()->count(200)->create();
 
     }
 }

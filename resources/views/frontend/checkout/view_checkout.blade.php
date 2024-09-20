@@ -125,17 +125,11 @@
                               <h6 class="mb-3 mt-0">Cash</h6>
                               <p>Please keep exact change handy to help us serve you better</p>
                               <hr>
-                              <form action="{{ route('user.order.cash_order') }}" method="post">
-                                 @csrf
 
-                                 <input type="hidden" name="name" value="{{ Auth::user()->name }}">
-                                 <input type="hidden" name="email" value="{{ Auth::user()->email }}">
-                                 <input type="hidden" name="phone" value="{{ Auth::user()->phone }}">
-                                 <input type="hidden" name="address" value="{{ Auth::user()->address }}">
+                              <a href="{{ route('user.order.cash_order') }}"
+                                 class="btn btn-success btn-block btn-lg">PAY
+                                 <i class="icofont-long-arrow-right"></i></a>
 
-                                 <button type="submit" class="btn btn-success btn-block btn-lg">PAY
-                                    <i class="icofont-long-arrow-right"></i></button>
-                              </form>
                            </div>
 
                            <div class="tab-pane fade" id="v-pills-home" role="tabpanel"
@@ -282,7 +276,7 @@
 
 
 
-               <a href="thanks.html" class="btn btn-success btn-block btn-lg">PAY
+               <a href="{{ route('user.order.cash_order') }}" class="btn btn-success btn-block btn-lg">PAY
                   @if (Session::has('coupon'))
                   ${{ Session()->get('coupon')['discount_amount'] }}
                   @else

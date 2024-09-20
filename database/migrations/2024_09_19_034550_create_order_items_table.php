@@ -14,10 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
+
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+
+
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
 
-            $table->string('client_id')->nullable();
             $table->string('qty');
             $table->float('price', 8, 2);
             $table->timestamps(); // Corrected timestamps

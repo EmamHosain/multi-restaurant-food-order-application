@@ -88,8 +88,18 @@ Route::controller(CheckoutController::class)->name('user.checkout.')->group(func
 
 
 // order route start here
-Route::controller(OrderController::class)->name('user.order.')->group(function () {
-    Route::post('/order', 'cashOrder')
+Route::controller(OrderController::class)->middleware('auth')->name('user.order.')->group(function () {
+    Route::get('/order', 'cashOrder')
         ->name('cash_order');
+
+    Route::get('/all-orders', 'getMyAllOrders')
+        ->name('get_my_all_orders');
+
+    Route::get('/order-details/{id}', 'orderDetails')
+        ->name('order_details');
+
+    Route::get('/download-invoice/{id}', 'downloadInvoice')
+        ->name('download_invoice');
+
 });
 // order route end here

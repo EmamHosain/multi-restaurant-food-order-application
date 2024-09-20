@@ -125,7 +125,7 @@ $status = $client->status;
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
 
-                            <a href="#">
+                            <a href="{{ route('client.get_all_clients_order') }}">
                                 <span data-key="t-calendar">All Orders</span>
                             </a>
                         </li>

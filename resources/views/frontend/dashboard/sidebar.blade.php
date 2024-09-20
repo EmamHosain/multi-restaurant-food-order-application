@@ -38,11 +38,11 @@ $profileData = App\Models\User::find($id);
                   class="icofont-food-cart"></i> Favourites </a>
          </li>
 
-         {{-- <li class="nav-item">
-            <a class="nav-link {{ Route::currentRouteName() === 'user.order.list' ? 'active' : '' }}"
-               href="{{ route('user.order.list') }}" role="tab" aria-controls="orders" aria-selected="true"><i
+         <li class="nav-item">
+            <a class="nav-link {{ Route::currentRouteName() === 'user.order.get_my_all_orders' || Route::currentRouteName() === 'user.order.order_details'  ? 'active' : '' }}"
+               href="{{ route('user.order.get_my_all_orders') }}" role="tab" aria-controls="orders" aria-selected="true"><i
                   class="icofont-food-cart"></i> Orders </a>
-         </li> --}}
+         </li>
 
 
          <li class="nav-item">

@@ -12,8 +12,13 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            // $table->unsignedBigInteger('client_id')->nullable();
+            // $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null');
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
+
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();
@@ -33,8 +38,13 @@ return new class extends Migration {
             $table->string('processing_date')->nullable();
             $table->string('shipped_date')->nullable();
             $table->string('delivered_date')->nullable();
-            
-            $table->string('status');
+
+            $table->enum('status', [
+                'Processing',
+                'Deliverd',
+                'Confirmed',
+                'Pending'
+            ]);
             $table->timestamps();
         });
     }
