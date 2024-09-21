@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageRestuarantController;
 use App\Http\Controllers\Admin\OrderManageController;
 use App\Http\Controllers\Admin\ProductManageController;
+use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -102,17 +103,12 @@ Route::middleware(['adminAuth'])->group(function () {
     Route::controller(OrderManageController::class)->group(function () {
         Route::get('/order-details/{id}', 'orderDetails')
             ->name('order_details');
-
-
         Route::get('/pending-orders', 'pendingOrders')
             ->name('pending_orders');
-
         Route::get('/processing-orders', 'processingOrders')
             ->name('processing_orders');
-
         Route::get('/confirmed-orders', 'confirmedOrders')
             ->name('confirmed_orders');
-            
         Route::get('/deliverd-orders', 'deliverdOrders')
             ->name('deliverd_orders');
 
@@ -137,11 +133,11 @@ Route::middleware(['adminAuth'])->group(function () {
 
 
 
-
-
-
-
-
-
+    Route::controller(ReportController::class)->prefix('report')->group(function () {
+        Route::get('/all-report', 'getAllReport')->name('get_all_report');
+        Route::post('/search-by-date', 'getAllReportByDate')->name('get_all_report_by_date');
+        Route::post('/search-by-month', 'getAllReportByMonth')->name('get_all_report_by_month');
+        Route::post('/search-by-year', 'getAllReportByYear')->name('get_all_report_by_year');
+    });
 
 });

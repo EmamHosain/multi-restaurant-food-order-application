@@ -182,7 +182,7 @@
                 </li>
 
 
-                <li class="menu-title mt-2" data-key="t-components">Elements</li>
+                {{-- <li class="menu-title mt-2" data-key="t-components">Elements</li> --}}
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -191,8 +191,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('admin.all.reports') }}" data-key="t-alerts">All Reports</a> --}}
-                            <a href="#" data-key="t-alerts">All Reports</a>
+                            <a href="{{ route('admin.get_all_report') }}" data-key="t-alerts">All Reports</a>
 
                         </li>
 
