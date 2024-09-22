@@ -4,6 +4,7 @@ use App\Http\Controllers\Client\GalleryController;
 use App\Http\Controllers\Client\MenuController;
 use App\Http\Controllers\Client\OrderManageController;
 use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\ClientProfileController;
@@ -100,6 +101,16 @@ Route::middleware(['clientAuth', 'checkInactiveClientAccount'])->group(function 
     // client all order manage route end here
 
 
+    // client report route start here
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/reports', 'getReportPage')->name('get_report_page');
+
+        Route::post('/search-by-date', 'getAllReportByDate')->name('get_all_report_by_date');
+        Route::post('/search-by-month', 'getAllReportByMonth')->name('get_all_report_by_month');
+        Route::post('/search-by-year', 'getAllReportByYear')->name('get_all_report_by_year');
+       
+    });
+    // client report route end here
 
 
 }); // check inactive middleware end 

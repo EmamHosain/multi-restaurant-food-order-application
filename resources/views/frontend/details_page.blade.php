@@ -122,6 +122,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                         <div class="owl-carousel owl-theme owl-carousel-five offers-interested-carousel mb-3">
 
                            @foreach ($populers as $populer)
+                           {{-- <span>client name : {{ $populer->client->name }}</span> --}}
                            <div class="item">
                               <div class="mall-category-item">
                                  <a href="#">
@@ -153,6 +154,8 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                      <div class="row">
                         <h5 class="mb-4 mt-3 col-md-12">Best Sellers</h5>
                         @foreach ($bestsellers as $bestseller)
+                        {{-- <span>client name : {{ $bestseller->client->name }}</span> --}}
+
                         <div class="col-md-4 col-sm-6 mb-4">
                            <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                               <div class="list-card-image">
@@ -211,7 +214,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                               @foreach ($menu->products as $product)
                               <div class="menu-list p-3 border-bottom">
-
+                                 <p>client name : {{ $product->client->name }}</p>
                                  <a class="btn btn-outline-secondary btn-sm  float-right"
                                     href="{{ route('user.cart.add_to_cart',$product->id) }}">ADD</a>
                                  <div class="media">

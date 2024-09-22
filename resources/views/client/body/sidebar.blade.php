@@ -139,11 +139,7 @@ $status = $client->status;
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('client.all.reports') }}">
-                                <span data-key="t-calendar">All Reports</span>
-                            </a> --}}
-
-                            <a href="#">
+                            <a href="{{ route('client.get_report_page') }}">
                                 <span data-key="t-calendar">All Reports</span>
                             </a>
                         </li>

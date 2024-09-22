@@ -23,7 +23,12 @@ class HomeController extends Controller
         session()->put('client_id', $client->id);
 
         // get all menu where menu's product in not empty
-        $menus = Menu::with('products')
+        $menus = Menu::with([
+            'products' =>
+                function ($query) use ($client) {
+                    $query->where('client_id', $client->id);
+                }
+        ])
             ->where('client_id', $client->id)
             ->orderByDesc('id')
             ->get()

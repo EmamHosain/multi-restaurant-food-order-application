@@ -18,6 +18,8 @@ class OrderManageController extends Controller
             ->orderByDesc('id')
             ->get()
             ->groupBy('order_id');
+
+        // return response()->json($order_items);
         return view('client.backend.order.all_orders', [
             'orders' => $order_items
         ]);
@@ -29,9 +31,14 @@ class OrderManageController extends Controller
     {
 
         $order = Order::with('user')->find($id);
-
-        $order_items = OrderItem::with('product')
+        $client = Auth::guard('client')->user();
+        $order_items = OrderItem::with([
+            'product' => function ($query) use ($client) {
+                $query->where('client_id', $client->id);
+            }
+        ])
             ->where('order_id', $order->id)
+            ->where('client_id', $client->id)
             ->orderByDesc('id')
             ->get();
 

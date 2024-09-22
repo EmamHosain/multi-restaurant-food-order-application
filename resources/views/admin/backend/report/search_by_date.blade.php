@@ -42,7 +42,8 @@
 
 
                             <tbody>
-                                @foreach ($orders as $key=> $item)
+                                @foreach ($order_items as $key=> $item)
+                                
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->order_date }}</td>
