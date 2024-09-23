@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Resources\RestaurantResource;
 use App\Models\Menu;
 use App\Models\Client;
 use App\Models\Review;
@@ -16,8 +17,34 @@ class HomeController extends Controller
         if (session()->has('client_id')) {
             session()->forget('client_id');
         }
-        return view('frontend.index');
+
+        $clients = Client::with([
+            'reviews' => function ($query) {
+                $query->where('status', 1);
+            }
+        ])->latest()->where('status', '1')->get();
+
+
+        return view('frontend.index', [
+            'clients' => $clients
+        ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function getRestuarantDetailsPage(Client $client)
     {
 
@@ -42,7 +69,7 @@ class HomeController extends Controller
         $ratingSum = $reviews->sum('rating');
         $averageRating = $ratingSum > 0 ? $ratingSum / $totalReviews : 0;
         $roundedAverageRating = round($averageRating, 1);
-        
+
         $ratingCounts = [
             '5' => $reviews->where('rating', 5)->count(),
             '4' => $reviews->where('rating', 4)->count(),
@@ -55,7 +82,7 @@ class HomeController extends Controller
             return $totalReviews > 0 ? ($count / $totalReviews) * 100 : 0;
         }, $ratingCounts);
 
-       
+
         return view('frontend.details_page', [
             'client' => $client,
             'menus' => $menus,

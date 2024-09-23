@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\CouponController;
+use App\Http\Controllers\User\FilterController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ReviewController;
@@ -113,3 +114,13 @@ Route::controller(ReviewController::class)->name('user.')->group(function () {
     Route::post('/review', 'reviewStore')->name('review_store');
 });
 // user review route end here
+
+
+
+
+// filter route start here
+Route::controller(FilterController::class)->group(function () {
+    Route::get('/products','filterProductPage')->name('filter_product_page');
+    Route::get('/filter-products','productFilter')->name('product_filter');
+});
+// filter route end here

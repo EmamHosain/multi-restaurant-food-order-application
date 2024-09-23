@@ -20,13 +20,11 @@
                      class="badge badge-warning">New</span></a>
             </li>
             <li class="nav-item dropdown">
-               {{-- <a class="nav-link" href="{{ route('list.restaurant') }}" role="button" aria-haspopup="true"
+               <a class="nav-link" href="{{ route('filter_product_page') }}" role="button" aria-haspopup="true"
                   aria-expanded="false">
                   Restaurants
-               </a> --}}
-               <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                  Restaurants
                </a>
+
 
             </li>
 
@@ -133,7 +131,8 @@
                   </div>
                   <div class="dropdown-cart-top-footer border-top p-2">
                      {{-- <a class="btn btn-success btn-block btn-lg" href="{{ route('checkout') }}"> Checkout</a> --}}
-                     <a class="btn btn-success btn-block btn-lg" href="{{ route('user.checkout.checkout') }}"> Checkout</a>
+                     <a class="btn btn-success btn-block btn-lg" href="{{ route('user.checkout.checkout') }}">
+                        Checkout</a>
 
                   </div>
                </div>

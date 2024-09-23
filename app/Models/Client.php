@@ -46,4 +46,8 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Menu::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

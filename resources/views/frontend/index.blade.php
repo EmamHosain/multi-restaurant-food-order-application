@@ -9,10 +9,7 @@
       </div>
       <div class="row">
 
-         @php
-         // get active all clients
-         $clients = App\Models\Client::latest()->where('status','1')->get();
-         @endphp
+
 
          @foreach ($clients as $client)
 
@@ -25,23 +22,19 @@
          $coupons = App\Models\Coupon::where('client_id',$client->id)->where('status','1')->first();
          @endphp
 
-         {{-- @php
-         $reviewcount = App\Models\Review::where('client_id',$client->id)->where('status',1)->latest()->get();
-         $avarage = App\Models\Review::where('client_id',$client->id)->where('status',1)->avg('rating');
-         @endphp --}}
 
          <div class="col-md-3">
             <div class="item pb-3">
                <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                   <div class="list-card-image">
                      <div class="star position-absolute">
+
+                        @if (count($client->reviews) > 0)
                         <span class="badge badge-success">
-
-                           {{-- <i class="icofont-star"></i> --}}
-                           {{-- {{ number_format($avarage,1) }} ({{ count($reviewcount )}}+) --}}
-                           345
+                           <i class="icofont-star"></i>
+                           {{ number_format($client->reviews->avg('rating')) }} ({{count($client->reviews)}}+)
                         </span>
-
+                        @endif
 
                      </div>
                      <div class="favourite-heart text-danger position-absolute">
@@ -67,9 +60,7 @@
                      <div class="list-card-body">
                         <h6 class="mb-1">
 
-                           {{-- <a href="{{ route('res.details',$client->id) }}" class="text-black">{{
-                              $client->name }}</a> --}}
-                           <a href="#" class="text-black">{{
+                           <a href="{{ route('restuarant_details',$client->id) }}" class="text-black">{{
                               $client->name }}</a>
 
                         </h6>
