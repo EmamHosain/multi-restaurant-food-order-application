@@ -199,6 +199,8 @@
                     </ul>
                 </li>
 
+
+                {{-- review start here --}}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i data-feather="gift"></i>
@@ -206,20 +208,18 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('admin.pending.review') }}" data-key="t-lightbox">Pending Review</a>
-                            --}}
-                            <a href="#" data-key="t-lightbox">Pending Review</a>
-
+                            <a href="{{ route('admin.pending_reviews') }}" data-key="t-lightbox">Pending Review</a>
                         </li>
                         <li>
-                            {{-- <a href="{{ route('admin.approve.review') }}" data-key="t-range-slider">Approve
-                                Review</a> --}}
-                            <a href="#" data-key="t-range-slider">Approve Review</a>
-
+                            <a href="{{ route('admin.approbed_reviews') }}" data-key="t-range-slider">Approve
+                                Review</a>
                         </li>
-
                     </ul>
                 </li>
+                {{-- review end here --}}
+
+
+
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">

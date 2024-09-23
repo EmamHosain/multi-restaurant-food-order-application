@@ -6,6 +6,7 @@ use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\CouponController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -103,3 +104,12 @@ Route::controller(OrderController::class)->middleware('auth')->name('user.order.
 
 });
 // order route end here
+
+
+
+
+// user review route start here
+Route::controller(ReviewController::class)->name('user.')->group(function () {
+    Route::post('/review', 'reviewStore')->name('review_store');
+});
+// user review route end here

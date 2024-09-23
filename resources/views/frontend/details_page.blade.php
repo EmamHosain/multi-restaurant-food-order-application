@@ -122,7 +122,6 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                         <div class="owl-carousel owl-theme owl-carousel-five offers-interested-carousel mb-3">
 
                            @foreach ($populers as $populer)
-                           {{-- <span>client name : {{ $populer->client->name }}</span> --}}
                            <div class="item">
                               <div class="mall-category-item">
                                  <a href="#">
@@ -154,7 +153,6 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                      <div class="row">
                         <h5 class="mb-4 mt-3 col-md-12">Best Sellers</h5>
                         @foreach ($bestsellers as $bestseller)
-                        {{-- <span>client name : {{ $bestseller->client->name }}</span> --}}
 
                         <div class="col-md-4 col-sm-6 mb-4">
                            <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
@@ -347,6 +345,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                      </div>
                   </div>
 
+
+
+                  {{-- reivew section start here --}}
                   <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                      <div id="ratings-and-reviews"
                         class="bg-white rounded shadow-sm p-4 mb-4 clearfix restaurant-detailed-star-rating">
@@ -363,23 +364,21 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                         <h5 class="mb-4">Ratings and Reviews</h5>
                         <div class="graph-star-rating-header">
                            <div class="star-rating">
-                              {{-- @for ($i = 1; $i <= 5; $i++) <a href="#"><i
-                                    class="icofont-ui-rating {{ $i <= round($roundedAverageRating) ? 'active' : ''}}"></i></a>
-                                 @endfor --}}
-                                 {{-- <b class="text-black ml-2">{{ $totalReviews }}</b> --}}
-                                 <b class="text-black ml-2">5</b>
+                              @for ($i = 1; $i <= 5; $i++) <a href="#"><i
+                                    class="icofont-ui-rating {{ $i <= $roundedAverageRating ? 'active' : ''}}"></i></a>
+                                 @endfor
+                                 <b class="text-black ml-2"> {{ $totalReviews }}</b>
 
                            </div>
-                           {{-- <p class="text-black mb-4 mt-2">Rated {{$roundedAverageRating}} out of 5</p> --}}
-                           <p class="text-black mb-4 mt-2">Rated 5 out of 5</p>
+                           <p class="text-black mb-4 mt-2">Rated {{$roundedAverageRating}} out of 5</p>
 
                         </div>
 
                         <div class="graph-star-rating-body">
+                           {{-- {{ print_r($ratingCounts) }} --}}
+                           @foreach ($ratingCounts as $star => $count)
 
-                           {{-- @foreach ($ratingCounts as $star => $count) --}}
-
-                           {{-- <div class="rating-list">
+                           <div class="rating-list">
                               <div class="rating-list-left text-black">
                                  {{ $star }} Star
                               </div>
@@ -392,13 +391,11 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                                     </div>
                                  </div>
                               </div>
-                              <div class="rating-list-right text-black">{{ number_format($ratingPercentages[$star],2)
+                              <div class="rating-list-right text-black">{{
+                                 round($ratingPercentages[$star])
                                  }}%</div>
                            </div>
-                           @endforeach --}}
-
-                           {{-- @endforeach --}}
-
+                           @endforeach
                         </div>
 
 
@@ -418,18 +415,20 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                               color: #dd646e;
                            }
                         </style>
-                        {{-- @php
+                        @php
                         $reviews =
                         App\Models\Review::where('client_id',$client->id)->where('status',1)->latest()->limit(5)->get();
-                        @endphp --}}
+                        @endphp
 
-                        {{-- @foreach ($reviews as $review)
+                        @foreach ($reviews as $review)
 
                         <div class="reviews-members pt-4 pb-4">
                            <div class="media">
                               <a href="#"><img alt="Generic placeholder image"
                                     src="{{ (!empty($review->user->photo)) ? url('upload/user_images/'.$review->user->photo) : url('upload/no_image.jpg') }}"
                                     class="mr-3 rounded-pill"></a>
+
+                                    
                               <div class="media-body">
                                  <div class="reviews-members-header">
                                     <span class="star-rating float-right">
@@ -443,8 +442,9 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                                           @endif
                                           @endfor
                                     </span>
-                                    <h6 class="mb-1"><a class="text-black" href="#">{{ $review->user->name }}</a></h6>
-                                    <p class="text-gray"> {{ Carbon\Carbon::parse($review->created_at)->diffForHumans()
+                                    <h6 class="mb-1"><a class="text-black" href="#">{{ !empty($review->user->name) ?
+                                          $review->user->name : 'Unknown Person' }}</a></h6>
+                                    <p class="text-gray">{{ Carbon\Carbon::parse($review->created_at)->diffForHumans()
                                        }} </p>
                                  </div>
                                  <div class="reviews-members-body">
@@ -459,7 +459,7 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                            </div>
                         </div>
 
-                        @endforeach --}}
+                        @endforeach
 
                         <hr>
 
@@ -492,7 +492,10 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
 
                         <h5 class="mb-4">Leave Comment</h5>
                         <p class="mb-2">Rate the Place</p>
-                        <form method="post" action="#">
+
+                        {{-- review form start here --}}
+
+                        <form method="post" action="{{ route('user.review_store') }}">
                            @csrf
                            <input type="hidden" name="client_id" value="{{ $client->id }}">
 
@@ -529,11 +532,12 @@ App\Models\Coupon::where('client_id',$client->id)->where('status','1')->where('v
                               <button class="btn btn-primary btn-sm" type="submit"> Submit Comment </button>
                            </div>
                         </form>
+                        {{-- review form end here --}}
 
                         @endguest
                      </div>
                   </div>
-
+                  {{-- reivew section start here --}}
 
                </div>
             </div>

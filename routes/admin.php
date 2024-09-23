@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ManageRestuarantController;
 use App\Http\Controllers\Admin\OrderManageController;
 use App\Http\Controllers\Admin\ProductManageController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ReviewManageController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -132,12 +133,25 @@ Route::middleware(['adminAuth'])->group(function () {
 
 
 
-
+    // report route  start here
     Route::controller(ReportController::class)->prefix('report')->group(function () {
         Route::get('/all-report', 'getAllReport')->name('get_all_report');
         Route::post('/search-by-date', 'getAllReportByDate')->name('get_all_report_by_date');
         Route::post('/search-by-month', 'getAllReportByMonth')->name('get_all_report_by_month');
         Route::post('/search-by-year', 'getAllReportByYear')->name('get_all_report_by_year');
     });
+    // report route  end here
+
+
+
+    // admin review manage start here
+    Route::controller(ReviewManageController::class)->group(function () {
+        Route::get('/pending-reviews', 'getAllPendingReviews')->name('pending_reviews');
+        Route::get('/approbed-reviews', 'getAllAppropedReviews')->name('approbed_reviews');
+        Route::get('/review-change-status', 'ReviewChangeStatus')->name('review_change_status');
+    });
+    // admin review manage start here
+
+
 
 });
