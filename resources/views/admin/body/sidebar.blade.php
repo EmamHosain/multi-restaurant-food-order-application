@@ -232,8 +232,7 @@
 
                         </li>
                         <li>
-                            {{-- <a href="{{ route('all.roles') }}" data-key="t-range-slider">All Roles</a> --}}
-                            <a href="#" data-key="t-range-slider">All Roles</a>
+                            <a href="{{ route('admin.get_all_roles') }}" data-key="t-range-slider">All Roles</a>
 
                         </li>
                         <li>

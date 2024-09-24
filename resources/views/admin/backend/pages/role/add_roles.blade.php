@@ -14,7 +14,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Roles  </li>
+                            <li class="breadcrumb-item active">Add Roles </li>
                         </ol>
                     </div>
 
@@ -24,56 +24,62 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-9 col-lg-8"> 
- <div class="card">
-<div class="card-body p-4">
+            <div class="col-xl-9 col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
 
-<form id="myForm" action="{{ route('roles.store') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    
-<div class="row">
-    <div class="col-lg-6">
-        <div>
-            <div class="form-group mb-3">
-                <label for="example-text-input" class="form-label">Roles Name</label>
-                <input class="form-control" type="text" name="name"  id="example-text-input">
-            </div> 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save Changes</button>
-            </div>
- 
-        </div>
-    </div>
+                        <form id="myForm" action="{{ route('admin.store_role') }}" method="post">
+                            @csrf
 
-     
-</div>
-</form>
-</div>
-</div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <div class="form-group mb-3">
+                                            <label for="example-text-input" class="form-label @error('name')
+                                                is-invalid
+                                            @enderror">Roles Name</label>
+                                            <input class="form-control" type="text" name="name" id="example-text-input">
+                                            @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save
+                                                Changes</button>
+                                        </div>
 
-
+                                    </div>
+                                </div>
 
 
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
 
 
 
-               
+
+
+
+
+
                 <!-- end tab content -->
             </div>
             <!-- end col -->
 
-            
+
             <!-- end col -->
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
- 
- 
+
+
 
 
 @endsection

@@ -1,16 +1,17 @@
 <?php
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminProfileController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CityController;
-use App\Http\Controllers\Admin\ManageRestuarantController;
-use App\Http\Controllers\Admin\OrderManageController;
-use App\Http\Controllers\Admin\PermissionManageController;
-use App\Http\Controllers\Admin\ProductManageController;
-use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\ReviewManageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\RoleManageController;
+use App\Http\Controllers\Admin\OrderManageController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\ReviewManageController;
+use App\Http\Controllers\Admin\ProductManageController;
+use App\Http\Controllers\Admin\ManageRestuarantController;
+use App\Http\Controllers\Admin\PermissionManageController;
 
 
 // guest route 
@@ -157,7 +158,7 @@ Route::middleware(['adminAuth'])->group(function () {
 
 
 
-    // admin role and permission route start here
+    // admin  permission route start here
     Route::controller(PermissionManageController::class)->group(function () {
         Route::get('/permissions', 'getAllPermissions')->name('get_all_permissions');
         Route::get('/add-permission', 'addPermission')->name('add_permission');
@@ -176,11 +177,21 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::get('/export-permission', 'exportPermission')->name('export_permission');
 
     });
-    // admin role and permission route end here
+    // admin  permission route end here
 
 
 
 
+    // admin role route start here
+    Route::controller(RoleManageController::class)->group(function () {
+        Route::get('/roles', 'getAllRoles')->name('get_all_roles');
+        Route::get('/add-role', 'addRole')->name('add_role');
+        Route::post('/store-role', 'storeRole')->name('store_role');
+        Route::get('/edit-role/{role}', 'editRole')->name('edit_role');
+        Route::patch('/update-role/{role}', 'updateRole')->name('update_role');
+        Route::get('/delete-role/{role}', 'deleteRole')->name('delete_role');
+    });
+    // admin role route start here
 
 
 
