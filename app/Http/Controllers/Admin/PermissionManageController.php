@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PermissionExport;
+use App\Imports\PermissionImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Permission;
 
 class PermissionManageController extends Controller
@@ -63,7 +66,7 @@ class PermissionManageController extends Controller
     }
 
 
-    
+
     public function deletePermission(Permission $permission)
     {
         $permission->delete();
@@ -73,6 +76,34 @@ class PermissionManageController extends Controller
         ];
         return redirect()->back()->with($notification);
     }
+
+
+
+    // download all permission as a excel file
+    public function exportPermission()
+    {
+        return Excel::download(new PermissionExport, 'permissions.xlsx');
+    }
+
+
+    public function importPermission()
+    {
+        return view('admin.backend.pages.permission.import_permission');
+    }
+    public function importPermissionSubmit(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls' // Only allow Excel files
+        ]);
+        Excel::import(new PermissionImport, $request->file('file'));
+
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'Permission updated successfully.',
+        ];
+        return to_route('admin.get_all_permissions')->with($notification);
+    }
+
 
 
 }

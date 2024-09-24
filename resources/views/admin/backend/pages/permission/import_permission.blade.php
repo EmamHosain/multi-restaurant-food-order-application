@@ -13,9 +13,11 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            
-      <li class="breadcrumb-item active">
-       <a href="{{ route('export') }}" class="btn btn-danger waves-effect waves-light">Export</a></li>
+
+                            <li class="breadcrumb-item active">
+                                <a href="{{ route('admin.export_permission') }}"
+                                    class="btn btn-danger waves-effect waves-light">Export</a>
+                            </li>
                         </ol>
                     </div>
 
@@ -25,36 +27,42 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-9 col-lg-8"> 
- <div class="card">
-<div class="card-body p-4">
+            <div class="col-xl-9 col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
 
-<form id="myForm" action="{{ route('import') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    
-<div class="row">
-    <div class="col-lg-6">
-        <div>
-            <div class="form-group mb-3">
-                <label for="example-text-input" class="form-label">Xlsx File Import</label>
-                <input class="form-control" type="file" name="import_file"  id="example-text-input">
-            </div>
-           
+                        <form id="myForm" action="{{ route('admin.import_permission_submit') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Upload</button>
-            </div>
- 
-        </div>
-    </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <div class="form-group mb-3">
+                                            <label for="example-text-input"
+                                                class="form-label @error('file') is-invalid @enderror">Excel File
+                                                Import</label>
+                                            <input class="form-control" type="file" name="file" id="example-text-input">
 
-     
-</div>
-</form>
-</div>
-</div>
+                                            @error('file')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
 
+                                        <div class="mt-4">
+                                            <button type="submit"
+                                                class="btn btn-primary waves-effect waves-light">Upload</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
 
@@ -62,21 +70,23 @@
 
 
 
-               
+
+
+
                 <!-- end tab content -->
             </div>
             <!-- end col -->
 
-            
+
             <!-- end col -->
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
- 
- 
+
+
 
 
 @endsection
