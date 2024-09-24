@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageRestuarantController;
 use App\Http\Controllers\Admin\OrderManageController;
+use App\Http\Controllers\Admin\PermissionManageController;
 use App\Http\Controllers\Admin\ProductManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ReviewManageController;
@@ -151,6 +152,24 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::get('/review-change-status', 'ReviewChangeStatus')->name('review_change_status');
     });
     // admin review manage start here
+
+
+
+
+
+    // admin role and permission route start here
+    Route::controller(PermissionManageController::class)->group(function () {
+        Route::get('/permissions', 'getAllPermissions')->name('get_all_permissions');
+        Route::get('/add-permission', 'addPermission')->name('add_permission');
+        Route::get('/add-permission', 'addPermission')->name('add_permission');
+        Route::get('/edit-permission/{permission}', 'editPermission')->name('edit_permission');
+        Route::patch('/update-permission/{permission}', 'updatePermission')->name('update_permission');
+        Route::get('/delete-permission/{permission}', 'deletePermission')->name('delete_permission');
+        Route::get('/import-permission', 'importPermission')->name('import_permission');
+        Route::post('/store-permission', 'storePermission')->name('store_permission');
+    });
+    // admin role and permission route end here
+
 
 
 

@@ -228,8 +228,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.permission') }}" data-key="t-lightbox">All Permission</a> --}}
-                            <a href="#" data-key="t-lightbox">All Permission</a>
+                            <a href="{{ route('admin.get_all_permissions') }}" data-key="t-lightbox">All Permission</a>
 
                         </li>
                         <li>

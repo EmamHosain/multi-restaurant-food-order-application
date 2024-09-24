@@ -9,21 +9,18 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
          <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-               <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+               <a class="nav-link" href="{{ route('index') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                <a class="nav-link" href="offers.html"><i class="icofont-sale-discount"></i> Offers <span
                      class="badge badge-danger">New</span></a>
             </li>
             <li class="nav-item dropdown">
-               {{-- <a class="nav-link" href="{{ route('list.restaurant') }}" role="button" data-toggle="dropdown"
+               <a class="nav-link" href="{{ route('filter_product_page') }}" role="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
-                  Restaurants
-               </a> --}}
-               <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-                  Restaurants
+                  Restaurants 
                </a>
+              
 
             </li>
             @auth
