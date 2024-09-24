@@ -57,7 +57,7 @@ class FilterController extends Controller
         if ($cityId) {
             $products->whereIn('city_id', $cityId);
         }
-        $filterProducts = $products->get();
+        $filterProducts = $products->limit(9)->get();
         return view('frontend.product_list', compact('filterProducts'))->render();
     }
 }

@@ -2,6 +2,7 @@
 @section('dashboard')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+{{-- stripe payment gateway css start --}}
 <style>
    /**
    * The CSS shown here will not be introduced in the Quickstart guide, but shows
@@ -31,8 +32,7 @@
       background-color: #fefde5 !important;
    }
 </style>
-<!-- /////////////////////////----------End CSS ------- ///////////////////////////// -->
-
+{{-- stripe payment gateway css start --}}
 
 <section class="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
    <div class="container">
@@ -142,7 +142,7 @@
                                        class="icofont-discover-alt"></i> <i class="icofont-jcb-alt"></i>
                                  </span>
                               </p>
-                              <form action="#" method="post" id="payment-form">
+                              <form action="{{ route('stripe_order') }}" method="post" id="payment-form">
                                  @csrf
                                  <label for="card-element"></label>
                                  <input type="hidden" name="name" value="{{ Auth::user()->name }}">
@@ -296,7 +296,7 @@
 <!-- /////////////////////////----------Start JavaScript  ------- ///////////////////////////// -->
 <script type="text/javascript">
    // Create a Stripe client.
-   var stripe = Stripe('pk_test_51Oml5cGAwoXiNtjJgPPyQngDj9WTjawya4zCsqTn3LPFhl4VvLZZJIh9fW9wqVweFYC5f0YEb9zjUqRpXbkEKT7T00eU1xQvjp');
+   var stripe = Stripe('pk_test_51Q2GSPRtEB0xQ8Cud8wpVj1GFiiVSm01thLnJrBH6nKyHHDldhFPM8FwoonQrD7tawGdWRr1MHAFJ4a3kqm3dQYU005qjGbrho');
    // Create an instance of Elements.
    var elements = stripe.elements();
    // Custom styling can be passed to options when creating an Element.

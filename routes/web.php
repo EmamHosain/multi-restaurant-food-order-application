@@ -8,6 +8,7 @@ use App\Http\Controllers\User\FilterController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ReviewController;
+use App\Http\Controllers\User\StripePaymentGatewayController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,22 @@ Route::controller(CheckoutController::class)->name('user.checkout.')->group(func
 // checkout route end here
 
 
+// user review route start here
+Route::middleware('auth')->controller(ReviewController::class)->name('user.')->group(function () {
+    Route::post('/review', 'reviewStore')->name('review_store');
+});
+// user review route end here
+
+
+
+
+// filter route start here
+Route::controller(FilterController::class)->group(function () {
+    Route::get('/products', 'filterProductPage')->name('filter_product_page');
+    Route::get('/filter-products', 'productFilter')->name('product_filter');
+});
+// filter route end here
+
 
 // order route start here
 Route::controller(OrderController::class)->middleware('auth')->name('user.order.')->group(function () {
@@ -108,19 +125,8 @@ Route::controller(OrderController::class)->middleware('auth')->name('user.order.
 
 
 
-
-// user review route start here
-Route::controller(ReviewController::class)->name('user.')->group(function () {
-    Route::post('/review', 'reviewStore')->name('review_store');
+// stripe payment gateway route start here
+Route::middleware('auth')->controller(StripePaymentGatewayController::class)->group(function () {
+    Route::post('/stripe-order', 'stripeOrder')->name('stripe_order');
 });
-// user review route end here
-
-
-
-
-// filter route start here
-Route::controller(FilterController::class)->group(function () {
-    Route::get('/products','filterProductPage')->name('filter_product_page');
-    Route::get('/filter-products','productFilter')->name('product_filter');
-});
-// filter route end here
+// stripe payment gateway route end here
