@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Admin\AdminRoleManageController;
 use App\Http\Controllers\Admin\RolePermissionManageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
@@ -217,16 +218,36 @@ Route::middleware(['adminAuth'])->group(function () {
         Route::patch('/update-role-permission/{role}', 'updateRoleAndPermission')
             ->name('update_role_and_permission');
 
-            Route::get('/delete-role-permission/{role}', 'deleteRoleAndPermission')
+        Route::get('/delete-role-permission/{role}', 'deleteRoleAndPermission')
             ->name('delete_role_and_permission');
 
-      
-
-
-
-            
     });
     // admin role and permission manage route start here
+
+
+
+    // admin role manage route start here
+    Route::controller(AdminRoleManageController::class)->group(function () {
+        Route::get('/all-admin', 'getAllAdmin')
+            ->name('get_all_admin');
+        Route::get('/add-admin', 'addAdmin')
+            ->name('add_admin');
+        Route::post('/store-admin', 'storeAdmin')
+            ->name('store_admin');
+        Route::get('/edit-admin/{admin}', 'editAdmin')
+            ->name('edit_admin');
+        Route::patch('/update-admin/{admin}', 'updateAdmin')
+            ->name('update_admin');
+        Route::get('/delete-admin/{admin}', 'deleteAdmin')
+            ->name('delete_admin');
+    });
+    // admin role manage route end here
+
+
+
+
+
+
 
 
 

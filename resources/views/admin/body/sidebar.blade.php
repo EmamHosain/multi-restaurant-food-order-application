@@ -257,13 +257,10 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            {{-- <a href="{{ route('all.admin') }}" data-key="t-lightbox">All Admin</a> --}}
-                            <a href="#" data-key="t-lightbox">All Admin</a>
-
+                            <a href="{{ route('admin.get_all_admin') }}" data-key="t-lightbox">All Admin</a>
                         </li>
                         <li>
-                            {{-- <a href="{{ route('add.admin') }}" data-key="t-range-slider">Add Admin</a> --}}
-                            <a href="#" data-key="t-range-slider">Add Admin</a>
+                            <a href="{{ route('admin.add_admin') }}" data-key="t-range-slider">Add Admin</a>
 
                         </li>
 
