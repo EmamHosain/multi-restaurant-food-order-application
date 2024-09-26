@@ -19,7 +19,7 @@
                             <a href="{{ route('admin.import_permission') }}"
                                 class="btn btn-warning waves-effect waves-light">Import</a>&nbsp;&nbsp;
 
-                            <a href="{{ route('admin.add_permission') }}"
+                            <a href="{{ route('admin.export_permission') }}"
                                 class="btn btn-danger waves-effect waves-light">Export</a>
                         </ol>
                     </div>
@@ -39,8 +39,8 @@
                             <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>Permission Name</th>
                                     <th>Permission Group </th>
+                                    <th>Permission Name</th>
                                     <th>Guard Name</th>
                                     <th>Action </th>
                                 </tr>
@@ -51,10 +51,9 @@
                                 @foreach ($permissions as $key=> $item)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $item->name }}</td>
                                     <td>{{ $item->group_name }}</td>
+                                    <td>{{ $item->name }}</td>
                                     <td>{{ $item->guard_name }}</td>
-
                                     <td><a href="{{ route('admin.edit_permission',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light">Edit</a>
                                         <a href="{{ route('admin.delete_permission',$item->id) }}"

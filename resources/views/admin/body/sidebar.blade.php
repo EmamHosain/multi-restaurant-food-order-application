@@ -236,17 +236,15 @@
 
                         </li>
                         <li>
-                            {{-- <a href="{{ route('add.roles.permission') }}" data-key="t-range-slider">Role In
-                                Permission</a> --}}
-                            <a href="#" data-key="t-range-slider">Role In
+                            <a href="{{ route('admin.add_role_in_permission') }}" data-key="t-range-slider">Role In
                                 Permission</a>
 
                         </li>
                         <li>
-                            {{-- <a href="{{ route('all.roles.permission') }}" data-key="t-range-slider">All Role In
-                                Permission</a> --}}
-                            <a href="#" data-key="t-range-slider">All Role In
+                            <a href="{{ route('admin.get_all_role_and_permission') }}" data-key="t-range-slider">All
+                                Role In
                                 Permission</a>
+
                         </li>
 
                     </ul>

@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([AdminSeeder::class]);
+        $this->call([AdminSeeder::class, PermissionSeeder::class]);
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'user@gmail.com',

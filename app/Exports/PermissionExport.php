@@ -13,6 +13,6 @@ class PermissionExport implements FromCollection
      */
     public function collection()
     {
-        return Permission::select('id', 'guard_name', 'group_name')->get();
+        return Permission::select('guard_name', 'group_name','name')->get();
     }
 }

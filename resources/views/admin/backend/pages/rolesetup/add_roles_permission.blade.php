@@ -3,7 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <style>
-    .form-check-label{
+    .form-check-label {
         text-transform: capitalize;
     }
 </style>
@@ -20,7 +20,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Role In Permission  </li>
+                            <li class="breadcrumb-item active">Add Role In Permission </li>
                         </ol>
                     </div>
 
@@ -30,102 +30,121 @@
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-9 col-lg-8"> 
- <div class="card">
-<div class="card-body p-4">
+            <div class="col-xl-9 col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
 
-<form id="myForm" action="{{ route('role.permission.store') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    
-<div class="row">
-    <div class="col-lg-12">
-        <div>
-            
-            <div class="form-group mb-3">
-                <label for="example-text-input" class="form-label">Roles Name </label>
-                <select name="role_id" class="form-select">
-                    <option selected disabled>Select Roles</option>
-                   @foreach ($roles as $role)  
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                        <form id="myForm" action="{{ route('admin.assign_role_permission') }}" method="post">
+                            @csrf
 
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="formCheck1">
-                <label class="form-check-label" for="formCheck1">
-                   Permission All 
-                </label>
-            </div>  
-       <hr>
-       @foreach ($permission_groups as $group)
-       <div class="row">
-        <div class="col-3">
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  {{ $group->group_name }}
-                </label>
-            </div>  
-        </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
 
-        <div class="col-9">
-    @php
-        $permissions = App\Models\Admin::getpermissionByGroupName($group->group_name);
-    @endphp
+                                        <div class="form-group mb-3">
+                                            <label for="example-text-input" class="form-label">Roles Name </label>
+                                            <select name="role" class="form-select @error('role')
+                                                is-invalid
+                                            @enderror">
+                                                <option selected disabled>Select Role</option>
+                                                @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
 
-        @foreach ($permissions as $permission)
-        <div class="form-check mb-3">
-            <input class="form-check-input" name="permission[]" value="{{ $permission->id }}" type="checkbox" id="flexCheckDefault{{ $permission->id }}">
-            <label class="form-check-label" for="flexCheckDefault{{ $permission->id }}">
-              {{ $permission->name }}
-            </label>
-        </div>   
-        @endforeach   
-        <br>
-        </div> 
+                                            @error('role')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-       </div> 
-       {{-- //end row --}}
-           
-       @endforeach      
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="formCheck1">
+                                            <label class="form-check-label" for="formCheck1">
+                                                Permission All
+                                            </label>
+                                        </div>
+                                        <hr>
+                                        @php
+                                        $count = 0;
+                                        @endphp
+                                        @foreach ($permission_groups as $index => $group)
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="flexCheckDefault-{{ $index }}">
+                                                    <label class="form-check-label" for="flexCheckDefault-{{ $index }}">
+                                                        {{ $group->group_name }}
+                                                    </label>
+                                                </div>
+                                            </div>
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary waves-effect waves-light">Save Changes</button>
-            </div>
- 
-        </div>
-    </div>
+                                            <div class="col-9">
+                                                @php
+                                                $permissions =
+                                                App\Models\Admin::getPermissionsByGroupName($group->group_name);
+                                                @endphp
 
-     
-</div>
-</form>
-</div>
-</div>
+                                                @foreach ($permissions as $permission)
+                                                <div class="form-check mb-3">
+                                                    <input class="form-check-input" name="permission[]"
+                                                        value="{{ $permission->id }}" type="checkbox"
+                                                        id="flexCheckDefault-{{ $permission->id }}">
+                                                    <label class="form-check-label"
+                                                        for="flexCheckDefault-{{ $permission->id }}">
+                                                        {{ $permission->name }}
+                                                    </label>
+                                                </div>
+                                                @endforeach
+                                                <br>
+                                            </div>
 
+                                        </div>
+                                        {{-- //end row --}}
 
-
+                                        @endforeach
 
 
 
 
 
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save
+                                                Changes</button>
+                                        </div>
 
-               
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
                 <!-- end tab content -->
             </div>
             <!-- end col -->
 
-            
+
             <!-- end col -->
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 </div>
 
- 
- <script>
+
+<script>
     $('#formCheck1').click(function(){
         if ($(this).is(':checked')) {
             $('input[ type=checkbox]').prop('checked',true)
@@ -133,7 +152,7 @@
             $('input[ type=checkbox]').prop('checked',false)
         }
     })
- </script>
+</script>
 
 
 @endsection

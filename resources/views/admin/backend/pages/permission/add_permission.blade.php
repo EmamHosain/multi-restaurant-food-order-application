@@ -34,15 +34,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div>
-                                        <div class="form-group mb-3">
-                                            <label for="example-text-input" class="form-label">Permission Name</label>
-                                            <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                                name="name" id="example-text-input" value="{{ old('name') }}">
-                                            @error('name')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
+                                    
                                         <div class="form-group mb-3">
                                             <label for="example-text-input" class="form-label">Permission Group</label>
                                             <select name="group_name"
@@ -70,6 +62,15 @@
                                             @enderror
                                         </div>
 
+                                        
+                                        <div class="form-group mb-3">
+                                            <label for="example-text-input" class="form-label">Permission Name</label>
+                                            <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                                name="name" id="example-text-input" value="{{ old('name') }}">
+                                            @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="mt-4">
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">Save
                                                 Changes</button>
