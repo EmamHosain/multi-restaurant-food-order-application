@@ -11,6 +11,7 @@
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0 font-size-18">All Banner</h4>
 
+                    @if (Auth::guard('admin')->user()->can('banner_create'))
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <a href="{{ route('admin.banner_create') }}"
@@ -18,6 +19,7 @@
                                 Banner</a>
                         </ol>
                     </div>
+                    @endif
 
                 </div>
             </div>
@@ -56,19 +58,21 @@
                                         @else
                                         <span class="text-danger"><b>Empty</b></span>
                                         @endif
-                                    
+
                                     </td>
 
 
                                     <td>
-
+                                        @if (Auth::guard('admin')->user()->can('banner_edit'))
                                         <a href="{{ route('admin.banner_edit',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light">Edit</a>
+                                        @endif
 
-                                        {{-- @if (Auth::guard('admin')->user()->can('category.delete')) --}}
-
+                                        @if (Auth::guard('admin')->user()->can('banner_delete'))
                                         <a href="{{ route('admin.banner_delete',$item->id) }}"
                                             class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                        @endif
+
                                     </td>
                                 </tr>
                                 @endforeach

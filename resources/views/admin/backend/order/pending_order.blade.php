@@ -53,9 +53,11 @@
 
 
                                     <td>
+                                        @if (Auth::guard('admin')->user()->can('order_details'))
                                         <a href="{{ route('admin.order_details',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light"> <i class="fas fa-eye"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

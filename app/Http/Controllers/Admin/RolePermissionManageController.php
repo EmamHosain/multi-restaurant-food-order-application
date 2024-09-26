@@ -31,38 +31,43 @@ class RolePermissionManageController extends Controller
 
     public function assignRolePermission(Request $request)
     {
-
+        // Validate request
         $request->validate([
-            'role' => 'required',
+            'role' => 'required|exists:roles,id',
             // 'permission' => 'required|array'
         ]);
 
+        // Get the role by its ID
+        $role = Role::findOrFail($request->role);
 
-        $permissions = $request->input('permission');
+        // Fetch permission names by their IDs
+        $permissions = Permission::whereIn('id', $request->input('permission'))
+            ->pluck('name')
+            ->toArray();
 
+        // Check if there are valid permissions
         if (empty($permissions)) {
             $notification = [
                 'alert-type' => 'error',
-                'message' => 'Please select permission'
+                'message' => 'Please select valid permissions.'
             ];
             return redirect()->back()->with($notification);
         }
 
+        // Sync the role with the permissions (this will remove old permissions and assign new ones)
+        // data insert or update into role_has_parmission pivot table
+        $role->syncPermissions($permissions);
 
-        $data = array();
-        foreach ($permissions as $key => $item) {
-            $data['role_id'] = $request->input('role');
-            $data['permission_id'] = $item;
-            DB::table('role_has_permissions')->insert($data);
-        }
-
+        // Success notification
         $notification = [
             'alert-type' => 'success',
-            'message' => 'Role and permission assing successful.'
+            'message' => 'Role and permissions assigned successfully.'
         ];
-        return to_route('admin.get_all_role_and_permission')->with($notification);
 
+        // Redirect to the roles and permissions list
+        return to_route('admin.get_all_role_and_permission')->with($notification);
     }
+
 
     public function getAllRoleAndPermission()
     {
@@ -86,18 +91,30 @@ class RolePermissionManageController extends Controller
 
     public function updateRoleAndPermission(Request $request, Role $role)
     {
+        // Ensure that 'permission' is always an array, even if none are selected
+        $permissions = $request->input('permission', []);
 
-        $permissions = $request->permission;
-        if (!empty($permissions)) {
-            $permissionNames = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
-            $role->syncPermissions($permissionNames);
-        } else {
-            $role->syncPermissions([]);
+        // Check if permissions are provided
+        if (empty($permissions)) {
+            $notification = [
+                'alert-type' => 'error',
+                'message' => 'Please select valid permissions.'
+            ];
+            return redirect()->back()->with($notification);
         }
-        $notification = array(
+
+        // Fetch the permission names from the selected IDs
+        $permissionNames = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
+
+        // Sync the role with the permissions
+        $role->syncPermissions($permissionNames);
+
+        // Success notification
+        $notification = [
             'message' => 'Role Permission Updated Successfully',
             'alert-type' => 'success'
-        );
+        ];
+
         return redirect()->route('admin.get_all_role_and_permission')->with($notification);
     }
 

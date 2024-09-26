@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminGuestMiddleware;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\ClientActiveCheckMiddleware;
 use App\Http\Middleware\ClientGuestMiddleware;
 use App\Http\Middleware\ClientMiddleware;
@@ -42,6 +43,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // inactive client account will not able to access this page
             'checkInactiveClientAccount' => ClientActiveCheckMiddleware::class,
+            
+            'permission'=> CheckPermission::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

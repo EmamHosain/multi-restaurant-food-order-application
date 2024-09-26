@@ -11,12 +11,14 @@
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0 font-size-18">Edit Restaurant</h4>
+                    @if (Auth::guard('admin')->user()->can('restaurant_read'))
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <a href="{{ route('admin.all_restuarants') }}"
                                 class="btn btn-primary waves-effect waves-light">All Restuarant</a>
                         </ol>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

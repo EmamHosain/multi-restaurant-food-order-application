@@ -12,13 +12,14 @@
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0 font-size-18">All Product</h4>
 
+                    @if (Auth::guard('admin')->user()->can('product_create'))
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <a href="{{ route('admin.product_create') }}"
                                 class="btn btn-primary waves-effect waves-light">Add Product</a>
                         </ol>
                     </div>
-
+                    @endif
                 </div>
             </div>
         </div>
@@ -76,13 +77,19 @@
                                     </td>
 
                                     <td>
+                                        @if (Auth::guard('admin')->user()->can('product_edit'))
                                         <a href="{{ route('admin.product_edit',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light"> <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
+
+
+                                        @if (Auth::guard('admin')->user()->can('product_delete'))
                                         <a href="{{ route('admin.product_delete',$item->id) }}"
                                             class="btn btn-danger waves-effect waves-light" id="delete"><i
                                                 class="fas fa-trash"></i></a>
-                                       
+                                        @endif
+
 
                                     </td>
                                 </tr>

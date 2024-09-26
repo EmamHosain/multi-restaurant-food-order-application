@@ -10,6 +10,7 @@
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0 font-size-18">All Category</h4>
 
+                    @if (Auth::guard('admin')->user()->can('category_create'))
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <a href="{{ route('admin.category_create') }}"
@@ -17,6 +18,7 @@
                                 Category</a>
                         </ol>
                     </div>
+                    @endif
 
                 </div>
             </div>
@@ -49,15 +51,16 @@
                                         <img src="{{  url($item->image) }}" alt="" style="width: 70px; height:40px;">
                                     </td>
                                     <td class="d-flex justify-content-start align-items-center gap-2">
+                                        @if (Auth::guard('admin')->user()->can('category_edit'))
                                         <a href="{{ route('admin.category_item_edit',$item->id) }}"
                                             class="btn btn-info waves-effect waves-light">Edit</a>
+                                        @endif
 
-                                        {{-- @if (Auth::guard('admin')->user()->can('category.delete')) --}}
-
+                                        @if (Auth::guard('admin')->user()->can('category_delete'))
                                         <a href="{{ route('admin.category_item_delete',$item->id) }}"
                                             class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                        @endif
 
-                                        {{-- @endif --}}
                                     </td>
                                 </tr>
                                 @endforeach

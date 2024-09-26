@@ -112,17 +112,20 @@
                                     <tr>
                                         <th width="50%"> </th>
                                         <td>
-                                            @if($order->status == 'Pending')
+                                            @if($order->status == 'Pending' &&
+                                            Auth::guard('admin')->user()->can('pending_to_confirm_order'))
                                             <a href="{{ route('admin.pendint_to_confirm_order',$order->id) }}"
                                                 class="btn btn-block btn-success" id="confirmOrder">Confirm Order</a>
 
-                                            @elseif ($order->status == 'Confirmed')
+                                            @elseif ($order->status == 'Confirmed' &&
+                                            Auth::guard('admin')->user()->can('confirm_to_processing_order'))
                                             <a href="{{ route('admin.confirm_to_processing_order',$order->id) }}"
                                                 class="btn btn-block btn-success" id="processingOrder">Processing
                                                 Order</a>
 
 
-                                            @elseif ($order->status == 'Processing')
+                                            @elseif ($order->status == 'Processing' &&
+                                            Auth::guard('admin')->user()->can('processing_to_deliverd_order'))
                                             <a href="{{ route('admin.processing_to_deliverd_order',$order->id) }}"
                                                 class="btn btn-block btn-success" id="deliverdOrder">Deliverd Order</a>
                                             @endif

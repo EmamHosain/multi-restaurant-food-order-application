@@ -19,6 +19,7 @@ class PermissionSeeder extends Seeder
         $permissions->destroy();
         // Product permissions
         $products_groups = [
+            'product_menu',
             'product_create',
             'product_edit',
             'product_read',
@@ -35,6 +36,7 @@ class PermissionSeeder extends Seeder
 
         // Category permissions
         $category_groups = [
+            'category_menu',
             'category_create',
             'category_edit',
             'category_read',
@@ -51,6 +53,7 @@ class PermissionSeeder extends Seeder
 
         // City permissions
         $city_groups = [
+            'city_menu',
             'city_create',
             'city_edit',
             'city_read',
@@ -67,10 +70,17 @@ class PermissionSeeder extends Seeder
 
         // Restaurant permissions
         $restaurant_groups = [
+            'restaurant_menu',
             'restaurant_create',
             'restaurant_edit',
             'restaurant_read',
             'restaurant_delete',
+            'set_restaurant_inactive',
+            'set_restaurant_active',
+
+            'pending_restaurant_read',
+            'approve_restaurant_read'
+
         ];
 
         foreach ($restaurant_groups as $item) {
@@ -83,6 +93,7 @@ class PermissionSeeder extends Seeder
 
         // Banner permissions
         $banner_groups = [
+            'banner_menu',
             'banner_create',
             'banner_edit',
             'banner_read',
@@ -99,10 +110,19 @@ class PermissionSeeder extends Seeder
 
         // Order permissions
         $order_groups = [
-            'order_create',
-            'order_edit',
-            'order_read',
-            'order_delete',
+            'order_menu',
+            'order_details',
+
+            'processing_to_confirm_order',
+            'pending_to_confirm_order',
+            'confirm_to_processing_order',
+            'processing_to_deliverd_order',
+
+
+            'pending_order_read',
+            'processing_order_read',
+            'confirm_order_read',
+            'deliverd_order_read',
         ];
 
         foreach ($order_groups as $item) {
@@ -115,10 +135,7 @@ class PermissionSeeder extends Seeder
 
         // Report permissions
         $report_groups = [
-            'report_create',
-            'report_edit',
-            'report_read',
-            'report_delete',
+            'report_menu',
         ];
 
         foreach ($report_groups as $item) {
@@ -131,10 +148,7 @@ class PermissionSeeder extends Seeder
 
         // Review permissions
         $review_groups = [
-            'review_create',
-            'review_edit',
-            'review_read',
-            'review_delete',
+            'review_menu',
         ];
 
         foreach ($review_groups as $item) {
@@ -144,5 +158,6 @@ class PermissionSeeder extends Seeder
                 'group_name' => 'Review',
             ]);
         }
+
     }
 }

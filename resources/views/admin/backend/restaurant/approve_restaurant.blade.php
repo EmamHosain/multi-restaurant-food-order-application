@@ -13,7 +13,14 @@
                     <h4 class="mb-sm-0 font-size-18">Approve Restaurant</h4>
 
 
-
+                    @if (Auth::guard('admin')->user()->can('restaurant_read'))
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <a href="{{ route('admin.all_restuarants') }}"
+                                class="btn btn-primary waves-effect waves-light">All Restuarant</a>
+                        </ol>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -57,8 +64,10 @@
                                     </td>
 
                                     <td>
+                                        @if (Auth::guard('admin')->user()->can('set_restaurant_inactive'))
                                         <a href="{{ route('admin.set_inactive_client',$item->id) }}"
                                             class="btn btn-danger">Inactive</a>
+                                        @endif
 
                                     </td>
                                 </tr>
