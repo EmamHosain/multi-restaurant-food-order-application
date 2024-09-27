@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\AdminRoleManageController;
+use App\Http\Controllers\Admin\MarkAsReadController;
 use App\Http\Controllers\Admin\RolePermissionManageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
@@ -304,6 +305,13 @@ Route::middleware(['adminAuth'])->group(function () {
     });
     // admin role manage route end here
 
+
+
+    // mark as read notification route start here
+
+    Route::get('/mark-notification-as-read/{id}', [MarkAsReadController::class, 'markAsRead'])->name('mark_as_read');
+
+    // mark as read notification route end here
 
 
 

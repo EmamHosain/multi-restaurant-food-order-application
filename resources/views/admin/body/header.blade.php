@@ -47,7 +47,6 @@
         </div>
 
         <div class="d-flex">
-
             <div class="dropdown d-inline-block d-lg-none ms-2">
                 <button type="button" class="btn header-item" id="page-header-search-dropdown" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -78,18 +77,16 @@
                 </button>
             </div>
 
-            {{-- @php
+            @php
             $ncount = Auth::guard('admin')->user()->unreadNotifications()->count();
-            @endphp --}}
+            @endphp
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon position-relative"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
-                    {{-- <span class="badge bg-danger rounded-pill">{{$ncount}}</span> --}}
-                    <span class="badge bg-danger rounded-pill">5</span>
-
+                    <span id="notification-count" class="badge bg-danger rounded-pill">{{$ncount}}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
@@ -99,45 +96,43 @@
                                 <h6 class="m-0"> Notifications </h6>
                             </div>
                             <div class="col-auto">
-                                {{-- <a href="#!" class="small text-reset text-decoration-underline"> Unread
-                                    ({{$ncount}})</a> --}}
-                                <a href="#!" class="small text-reset text-decoration-underline"> Unread
-                                    (5)</a>
+                                <a href="javascript:void(0)" class="small text-reset text-decoration-underline"> Unread
+                                    ({{$ncount}})</a>
+
                             </div>
                         </div>
                     </div>
                     <div data-simplebar style="max-height: 230px;">
 
-                        {{-- @php
+                        @php
                         $user = Auth::guard('admin')->user();
-                        @endphp --}}
+                        @endphp
 
-                        {{-- @foreach ($user->notifications as $notification) --}}
-                        {{-- <a href="{{ route('pending.order') }}" class="text-reset notification-item"> --}}
-                            <a href="#" class="text-reset notification-item">
+                        @foreach ($user->unreadNotifications as $notification)
+                        <a href="javascript:void(0)" class="text-reset notification-item">
+                            <div class="d-flex {{ $notification->read_at ? 'notification-read' : 'notification-unread' }}"
+                                onclick="markAsReadNotification('{{ $notification->id }}')">
+                                <div class="flex-shrink-0 avatar-sm me-3">
+                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                                        <i class="bx bx-cart"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">{{ $notification->data['message'] }}</h6>
+                                    <div class="font-size-13 text-muted">
 
-                                {{-- <div
-                                    class="d-flex {{ $notification->read_at ? 'notification-read' : 'notification-unread' }}"
-                                    onclick="markNotificationRead('{{ $notification->id }}')">
-                                    <div class="flex-shrink-0 avatar-sm me-3">
-                                        <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                            <i class="bx bx-cart"></i>
-                                        </span>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>{{
+                                                Carbon\Carbon::parse($notification->created_at)->diffForHumans()
+                                                }}</span></p>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1">{{ $notification->data['message'] }}</h6>
-                                        <div class="font-size-13 text-muted">
-
-                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>{{
-                                                    Carbon\Carbon::parse($notification->created_at)->diffForHumans()
-                                                    }}</span></p>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                            </a>
-                            {{-- @endforeach --}}
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
 
                     </div>
+
+
                     <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span>
@@ -188,26 +183,31 @@
 </header>
 
 <script>
-    function markNotificationRead(notificationId){
-        fetch('/mark-notification-as-read/'+notificationId,{
-            method: 'POST',
+    function markAsReadNotification(id) {
+        // console.log('id',id);
+        $.ajax({
+            url: "{{ route('admin.mark_as_read', ':id') }}".replace(':id', id), // Endpoint
+            type: 'GET',  // Method type
+            dataType: 'json',  // Expecting JSON response
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  // CSRF token from meta tag
             },
-            body: JSON.stringify({})
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('notification-count').textContent = data.count;
-            const notificationElement = document.querySelector(`[onclick="markNotificationRead('${notificationId}')"]`);
-            if (notificationElement) {
-                notificationElement.classList.remove('notification-unread');
-                notificationElement.classList.add('notification-read');
+            success: function(data) {
+                // Update notification count in the UI
+                console.log('count', data);
+                $('#notification-count').text(data.count);
+                
+                // Optionally update the notification styling
+                const notificationElement = $(`[onclick="markAsReadNotification('${id}')"]`);
+                if (notificationElement.length) {
+                    notificationElement.removeClass('notification-unread').addClass('notification-read');
+                }
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle errors gracefully
+                console.error('Error:', error);
             }
-        })
-        .catch(error => {
-            console.log('Error', error);
         });
     }
 </script>

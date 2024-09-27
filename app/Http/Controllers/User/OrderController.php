@@ -2,24 +2,31 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Notifications\OrderCompleteNotification;
 use Carbon\Carbon;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 // dom pdf 
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Notification;
+
 class OrderController extends Controller
 {
     public function cashOrder(Request $request)
     {
 
+        $admins = Admin::get();
+
         $user = Auth::user();
         $cart = session()->get('cart', []);
         $totalAmount = 0;
+
         foreach ($cart as $item) {
             $totalAmount += ($item['price'] * $item['quantity']);
         }
@@ -69,6 +76,14 @@ class OrderController extends Controller
         if (Session::has('cart')) {
             Session::forget('cart');
         }
+
+
+        // send notification
+        Notification::send($admins, new OrderCompleteNotification($user->name));
+
+
+
+
 
         $notification = array(
             'message' => 'Order Placed Successfully',
